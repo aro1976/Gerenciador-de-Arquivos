@@ -1,4 +1,4 @@
-Configure a variavel de ambiente FILESHARE_HOME
+Configure a variável de ambiente FILESHARE_HOME
 
-Crie o diretorio $FILESHARE_HOME/data
+Crie o diretório $FILESHARE_HOME/data
 

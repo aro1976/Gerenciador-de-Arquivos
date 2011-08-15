@@ -9,7 +9,7 @@
         <title>File Share</title>
     </head>
     <body>
-    	<table>
+    	<table border="1">
     		<tr>
     			<th>Name</th>
     			<th>Size</th>
