@@ -9,7 +9,11 @@
         <title>Query Shared Files</title>
     </head>
     <body>
-        <form:form modelAttribute="fileMetadata" method="get">
+    	<h2>File Share Service</h2>
+    	<a href="">Query Params</a> | <a href="new">Upload New</a> | <a href="all">All Files</a>
+    	<hr>
+    	
+        <form:form modelAttribute="fileItem" method="get">
             <fieldset>
                 <legend>Query By Process</legend>
                 <table>
@@ -23,7 +27,9 @@
                 </tr>
 				</table>
             </fieldset>
-            
+        </form:form>  
+        
+       	<form:form modelAttribute="fileItem" method="get"> 
             <fieldset>
                 <legend>Query By Document</legend>
                 <table>                

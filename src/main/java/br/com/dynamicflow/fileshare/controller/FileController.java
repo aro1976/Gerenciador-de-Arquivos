@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -50,7 +51,7 @@ public class FileController {
 	@Autowired
 	FileMetadataConfig fileConfig;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="all", method = RequestMethod.GET)
 	public ModelAndView listAll(Model model) throws Exception {
 		log.info("listAll");
 		
@@ -60,23 +61,21 @@ public class FileController {
 	}
 	
 	@RequestMapping(value="query", method = RequestMethod.GET)
-	public ModelAndView query(FileMetadata fileMetadata) throws Exception {
+	public ModelAndView query(FileItem query) throws Exception {
 		log.info("query");
 		
-		if (fileMetadata.getDocument() == null || fileMetadata.getProcess() == null) {
-			return new ModelAndView("file/query");
-		}
-		
 		ModelAndView model = new ModelAndView("file/list");
-		if (fileMetadata.getProcess() != null && fileMetadata.getProcess().length() > 0) {
-			model.addObject("fileList", fileRepository.findByProcess(fileMetadata.getProcess()));
+		if (query.getProcess() != null && query.getProcess().length() > 0) {
+			model.addObject("fileList", fileRepository.findByProcess(query.getProcess()));
+			return model;
 		}
 		
-		if (fileMetadata.getDocument() != null && fileMetadata.getDocument().length() > 0) {
-			model.addObject("fileList", fileRepository.findByDocument(fileMetadata.getDocumentType().toString(),fileMetadata.getDocument()));
+		if (query.getDocument() != null && query.getDocument().length() > 0) {
+			model.addObject("fileList", fileRepository.findByDocument(query.getDocumentType().toString(),query.getDocument()));
+			return model;
 		}
 		
-		return model;
+		return new ModelAndView("file/query");
 	}
 	
 	@RequestMapping(value="new", method = RequestMethod.GET)
@@ -87,7 +86,7 @@ public class FileController {
 		return "file/new";
 	}
 
-	@RequestMapping(value="{id}", method=RequestMethod.GET)
+	@RequestMapping(value="download/{id}", method=RequestMethod.GET)
 	public void view(@PathVariable String id, HttpServletResponse response) throws IOException {
 		log.info("view "+id);
 		
@@ -97,7 +96,9 @@ public class FileController {
 		}
 		
 		FileMetadata metadata = fileRepository.findById(id);
-		response.addHeader("Last-Modified", getHttpDate(metadata.getDate()));
+		fileRepository.incrementAccess(id);
+		
+		response.addHeader("Last-Modified", getHttpDate(metadata.getUploadDate()));
 		response.setContentType(metadata.getContentType());
 		response.setContentLength(metadata.getSize().intValue());
 		response.setHeader("Content-Disposition", "attachment; filename=\""
@@ -124,17 +125,18 @@ public class FileController {
 			storeFile(digest,uploadItem);
 			
 			FileMetadata fileMetadata = new br.com.dynamicflow.fileshare.service.FileMetadata();
-			fileMetadata.setDate(new Date());
+			fileMetadata.setUploadDate(new Date());
 			fileMetadata.setDocument(uploadItem.getDocument());
 			fileMetadata.setFileName(uploadItem.getFileData().getOriginalFilename());
 			fileMetadata.setId(digest);
 			fileMetadata.setContentType(uploadItem.getFileData().getContentType());
 			fileMetadata.setSize(uploadItem.getFileData().getSize());
-			fileMetadata.setProcess(uploadItem.getProcess());
-			fileMetadata.setDocumentType(uploadItem.getType());
+			String[] process = uploadItem.getProcess().split(",");
+			fileMetadata.setProcess(Arrays.asList(process));
+			fileMetadata.setDocumentType(uploadItem.getDocumentType());
 			fileRepository.save(fileMetadata);
 	
-			return "redirect:/app/file";
+			return "redirect:/app/file/query";
 		} catch (IOException e) {
 			log.error(e);
 			return "file/new";

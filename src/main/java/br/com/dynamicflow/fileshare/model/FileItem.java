@@ -11,7 +11,7 @@ public class FileItem {
 	private String name;
 	private String document;
 	private String process;
-	private Type type;
+	private Type documentType;
 	private CommonsMultipartFile fileData;
 	
 	public String getName() {
@@ -32,18 +32,16 @@ public class FileItem {
 	public void setProcess(String process) {
 		this.process = process;
 	}
-	public Type getType() {
-		return type;
+	public Type getDocumentType() {
+		return documentType;
 	}
-	public void setType(Type type) {
-		this.type = type;
+	public void setDocumentType(Type type) {
+		this.documentType = type;
 	}
 	public CommonsMultipartFile getFileData() {
 		return fileData;
 	}
 	public void setFileData(CommonsMultipartFile fileData) {
 		this.fileData = fileData;
-	}
-	
-	
+	}	
 }

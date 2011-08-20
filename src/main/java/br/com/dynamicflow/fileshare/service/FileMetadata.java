@@ -1,6 +1,8 @@
 package br.com.dynamicflow.fileshare.service;
 
 import java.util.Date;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.document.mongodb.mapping.Document;
 
@@ -16,9 +18,13 @@ public class FileMetadata {
 
 	private String fileName;
 
-	private Date date;
+	private Date uploadDate;
 
-	private String process;
+	private Date accessDate;
+	
+	private Long accessCount;
+	
+	private List<String> processList;
 
 	private Type documentType;
 
@@ -31,16 +37,6 @@ public class FileMetadata {
 	public FileMetadata() {
 	}
 
-	public FileMetadata(String fileName, String process, Type type,
-			String document) {
-		super();
-		this.date = new Date();
-		this.fileName = fileName;
-		this.process = process;
-		this.documentType = type;
-		this.document = document;
-	}
-
 	public String getId() {
 		return id;
 	}
@@ -49,12 +45,12 @@ public class FileMetadata {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getUploadDate() {
+		return uploadDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setUploadDate(Date date) {
+		this.uploadDate = date;
 	}
 
 	public String getDocument() {
@@ -73,12 +69,12 @@ public class FileMetadata {
 		this.fileName = fileName;
 	}
 
-	public String getProcess() {
-		return process;
+	public List<String> getProcess() {
+		return processList;
 	}
 
-	public void setProcess(String process) {
-		this.process = process;
+	public void setProcess(List<String> process) {
+		this.processList = process;
 	}
 
 	public Type getDocumentType() {
@@ -105,11 +101,28 @@ public class FileMetadata {
 		this.contentType = contentType;
 	}
 
+	public Date getAccessDate() {
+		return accessDate;
+	}
+
+	public void setAccessDate(Date accessDate) {
+		this.accessDate = accessDate;
+	}
+
+	public Long getAccessCount() {
+		return accessCount != null ? accessCount : 0L;
+	}
+
+	public void setAccessCount(Long count) {
+		this.accessCount = count;
+	}
+
 	@Override
 	public String toString() {
 		return "FileMetadata [id=" + id + ", contentType=" + contentType
-				+ ", size=" + size + ", date=" + date + ", fileName="
-				+ fileName + ", process=" + process + ", documentType="
+				+ ", fileName=" + fileName + ", size=" + size + ", uploadDate="
+				+ uploadDate + ", accessDate=" + accessDate + ", count="
+				+ accessCount + ", processList=" + processList + ", documentType="
 				+ documentType + ", document=" + document + "]";
 	}
 

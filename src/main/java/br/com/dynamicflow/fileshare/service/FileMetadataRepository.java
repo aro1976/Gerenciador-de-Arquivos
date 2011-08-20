@@ -2,6 +2,8 @@ package br.com.dynamicflow.fileshare.service;
 
 import static org.springframework.data.document.mongodb.query.Criteria.where;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,6 +14,7 @@ import org.springframework.data.document.mongodb.MongoTemplate;
 import org.springframework.data.document.mongodb.query.Index;
 import org.springframework.data.document.mongodb.query.Order;
 import org.springframework.data.document.mongodb.query.Query;
+import org.springframework.data.document.mongodb.query.Update;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -32,7 +35,7 @@ public class FileMetadataRepository {
 		
 		mongoTemplate.ensureIndex(new Index()
 			.named("fileMetadata_by_process")
-			.on("process", Order.ASCENDING), FileMetadata.class);
+			.on("processList", Order.ASCENDING), FileMetadata.class);
 		
 		mongoTemplate.ensureIndex(new Index()
 			.named("fileMetadata_by_documentType_and_document")
@@ -43,10 +46,21 @@ public class FileMetadataRepository {
 	public void save(FileMetadata file) {
 		log.info("init");
 		
-		mongoTemplate.insert(file);
+		mongoTemplate.save(file);
 		System.out.println("Saved: " + file);
 	}
 
+	public void incrementAccess(String id) {
+		log.info("incrementAccess "+id);
+		
+		Query query = new Query(where("id").is(id));
+		Update update = new Update();
+        update.set("accessDate", new Date());
+        update.inc("accessCount", 1);
+        
+        mongoTemplate.updateMulti(query, update, FileMetadata.class); 
+	}
+	
 	public List<FileMetadata> findAll() {
 		log.info("findAll");
 		
@@ -69,7 +83,7 @@ public class FileMetadataRepository {
 		log.info("findByProcess "+process);
 		
 		List<FileMetadata> results = mongoTemplate.find(
-				new Query(where("process").is(process)), FileMetadata.class);
+				new Query(where("processList").in(process)), FileMetadata.class);
 		
 		if (log.isDebugEnabled()) log.debug("results: "+results);
 		return results;
