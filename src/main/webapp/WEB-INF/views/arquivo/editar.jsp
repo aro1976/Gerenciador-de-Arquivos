@@ -10,7 +10,7 @@
     </head>
     <body>
     	<h2>Gerenciador de Arquivos</h2>
-    	<a href="../consultar">Consulta</a> | <a href="">Editar Arquivo</a> | <a href="../listar">Listar Todos</a>
+    	<a href="../consultar">Consulta</a> | <a href="../carregar">Carregar Arquivo</a> | <a href="../listar">Listar Todos</a>
     	<hr>
         <form:form modelAttribute="arquivo" method="post">
             <fieldset>

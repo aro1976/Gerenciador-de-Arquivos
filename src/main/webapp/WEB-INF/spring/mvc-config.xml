@@ -10,7 +10,7 @@
 	<mvc:annotation-driven />
 
 	<!-- Forwards requests to the "/" resource to the "welcome" view -->
-	<mvc:view-controller path="/" view-name="welcome"/>
+	<mvc:view-controller path="/" view-name="redirect:/app/arquivo/consultar"/>
 
 	<!-- Resolves view names to protected .jsp resources within the /WEB-INF/views directory -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

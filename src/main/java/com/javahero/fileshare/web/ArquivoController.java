@@ -31,7 +31,7 @@ import com.javahero.fileshare.service.RepositorioMetadados;
  * direcionando para a visualização correta.
  * 
  * @author Alessandro Ramos de Oliveira <alessandro.oliveira@me.com>
- * @category Domain
+ * @category WEB
  */
 @Controller
 @RequestMapping(value = "/arquivo")
@@ -41,9 +41,10 @@ public class ArquivoController {
 	
 	private static final Logger log = Logger.getLogger(ArquivoController.class);
 	
-	private static final SimpleDateFormat httpDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+	private static final SimpleDateFormat httpDateFormat;
 	 
 	static{
+		httpDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
 		httpDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 	}
 	
