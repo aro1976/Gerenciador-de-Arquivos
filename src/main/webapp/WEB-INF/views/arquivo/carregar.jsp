@@ -1,0 +1,32 @@
+<%@page contentType="text/html;charset=UTF-8" %>
+<%@page pageEncoding="UTF-8" %>
+<%@ page session="false" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <title>File Share Service - Carregar Arquivo</title>
+    </head>
+    <body>
+    	<h2>File Share Service</h2>
+    	<a href="consultar">Consulta</a> | <a href="">Carregar Arquivo</a> | <a href="listar">Listar Todos</a>
+    	<hr>
+        <form:form modelAttribute="arquivoConteudo" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <legend>Carregar Arquivo</legend>
+                <table>
+	                <tr>
+	                    <td><form:label for="arquivo" path="arquivo">File</form:label></td>
+	                    <td><form:input path="arquivo" type="file" size="100"/></td>
+	                </tr>
+	
+	                <tr>
+	                    <td colspan="2"><input type="submit" /></td>
+	                </tr>
+				</table>
+            </fieldset>
+        </form:form>
+        
+    </body>
+</html>
