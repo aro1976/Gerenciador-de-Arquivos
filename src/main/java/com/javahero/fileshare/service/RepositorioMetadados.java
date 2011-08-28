@@ -18,14 +18,24 @@ import org.springframework.stereotype.Repository;
 
 import com.javahero.fileshare.domain.ArquivoMetadados;
 
+/**
+ * Gerencia a persisência dos Metadados no MongoDB
+ * 
+ * @author Alessandro Ramos de Oliveira <alessandro.oliveira@me.com>
+ * @category Service
+ */
 @Repository
 public class RepositorioMetadados {
 
+	// atributos
+	
 	private static final Logger log = Logger.getLogger(RepositorioMetadados.class);
 	
 	@Autowired
 	MongoTemplate mongoTemplate;
 
+	// regras de negócio
+	
 	@PostConstruct
 	public void inicializar() {
 		log.info("inicializar");

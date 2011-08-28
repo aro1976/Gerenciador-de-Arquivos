@@ -1,26 +1,19 @@
 package com.javahero.fileshare.service;
 
-import static org.springframework.data.document.mongodb.query.Criteria.where;
-
 import java.io.File;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.document.mongodb.MongoTemplate;
-import org.springframework.data.document.mongodb.query.Index;
-import org.springframework.data.document.mongodb.query.Order;
-import org.springframework.data.document.mongodb.query.Query;
-import org.springframework.data.document.mongodb.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.javahero.fileshare.domain.ArquivoConteudo;
-import com.javahero.fileshare.domain.ArquivoMetadados;
 
+/**
+ * Gerencia a persistência dos arquivos no sistema operacional
+ * 
+ * @author Alessandro Ramos de Oliveira <alessandro.oliveira@me.com>
+ * @category Service
+ */
 @Repository
 public class RepositorioArquivos {
 

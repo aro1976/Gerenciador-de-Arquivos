@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +26,13 @@ import com.javahero.fileshare.service.Configuracao;
 import com.javahero.fileshare.service.RepositorioArquivos;
 import com.javahero.fileshare.service.RepositorioMetadados;
 
-
+/**
+ * Controla o acesso á aplicação, delegando a execução das regras de negócio para os serviços e 
+ * direcionando para a visualização correta.
+ * 
+ * @author Alessandro Ramos de Oliveira <alessandro.oliveira@me.com>
+ * @category Domain
+ */
 @Controller
 @RequestMapping(value = "/arquivo")
 public class ArquivoController {

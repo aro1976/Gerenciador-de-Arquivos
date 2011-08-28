@@ -6,10 +6,10 @@
 <html>
     <head>
         <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <title>Query Shared Files</title>
+        <title>Gerenciador de Arquivos - Consultar</title>
     </head>
     <body>
-    	<h2>File Share Service</h2>
+    	<h2>Gerenciador de Arquivos</h2>
     	<a href="consultar">Consulta</a> | <a href="carregar">Carregar Arquivo</a> | <a href="listar">Listar Todos</a>
     	<hr>
         <form:form modelAttribute="arquivoMetadados" method="get">

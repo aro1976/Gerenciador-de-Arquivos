@@ -6,8 +6,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.document.mongodb.mapping.Document;
 
 /**
+ * Utilizado para representar os Metadados associados ao Arquivo
+ * 
  * @author Alessandro Ramos de Oliveira <alessandro.oliveira@me.com>
- * @category Model
+ * @category Domain
  */
 @Document
 public class ArquivoMetadados {

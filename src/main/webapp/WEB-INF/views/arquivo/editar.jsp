@@ -6,10 +6,10 @@
 <html>
     <head>
         <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <title>File Share Service - Upload New</title>
+        <title>Gerenciador de Arquivos - Editar</title>
     </head>
     <body>
-    	<h2>File Share Service</h2>
+    	<h2>Gerenciador de Arquivos</h2>
     	<a href="../consultar">Consulta</a> | <a href="">Editar Arquivo</a> | <a href="../listar">Listar Todos</a>
     	<hr>
         <form:form modelAttribute="arquivo" method="post">

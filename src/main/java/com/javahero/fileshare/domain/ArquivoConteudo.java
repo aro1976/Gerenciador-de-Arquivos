@@ -7,8 +7,10 @@ import org.apache.log4j.Logger;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
+ * Utilizado para representar um arquivo que será carregaddo
+ * 
  * @author Alessandro Ramos de Oliveira <alessandro.oliveira@me.com>
- * @category Model
+ * @category Domain
  */
 public class ArquivoConteudo {
 	
