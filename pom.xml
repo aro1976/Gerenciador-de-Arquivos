@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.javahero</groupId>
-	<artifactId>fileshare-service</artifactId>
+	<artifactId>gerenciador-arquivos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>fileshare-service</name>
+	<name>Gerenciador de Arquivos</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
