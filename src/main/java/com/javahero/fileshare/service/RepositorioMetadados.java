@@ -30,6 +30,8 @@ public class RepositorioMetadados {
 	// atributos
 	
 	private static final Logger log = Logger.getLogger(RepositorioMetadados.class);
+
+	public static final int LIMITE = 4;
 	
 	@Autowired
 	MongoTemplate mongoTemplate;
@@ -65,6 +67,21 @@ public class RepositorioMetadados {
 		return results;
 	}
 
+	public List<ArquivoMetadados> buscarPorCriterio(ArquivoMetadados criterio, int pagina) {
+		log.info("buscarPorCriterio "+criterio+ " pagina "+pagina);
+		
+		Query query = new Query();
+		query.skip((pagina-1)*LIMITE);
+		query.limit(LIMITE);
+		if (criterio.getNomeOriginal()!=null && !criterio.getNomeOriginal().isEmpty()) {
+			query.addCriteria(where("nomeOriginal").regex("(.*)"+criterio.getNomeOriginal()+"(.*)"));
+		}
+		List<ArquivoMetadados> results = mongoTemplate.find(query, ArquivoMetadados.class);
+		
+		if (log.isDebugEnabled()) log.debug("results: "+results);
+		return results;
+	}
+	
 	public ArquivoMetadados buscarPorHash(String hash) {
 		log.info("buscarPorHash "+hash);
 		

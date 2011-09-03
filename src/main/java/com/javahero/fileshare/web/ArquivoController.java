@@ -5,9 +5,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -34,7 +36,6 @@ import com.javahero.fileshare.service.RepositorioMetadados;
  * @category WEB
  */
 @Controller
-@RequestMapping(value = "/arquivo")
 public class ArquivoController {
 	
 	// atributos
@@ -63,7 +64,7 @@ public class ArquivoController {
 	
 	// tratamento de requisições
 	
-	@RequestMapping(value="carregar", method = RequestMethod.GET)
+	@RequestMapping(value="/arquivo", method = RequestMethod.GET)
 	public String selecionarArquivo(Model model) {
 		log.info("selecionarArquivo");
 		
@@ -71,7 +72,7 @@ public class ArquivoController {
 		return "arquivo/carregar";
 	}
 	
-	@RequestMapping(value="carregar", method = RequestMethod.POST)
+	@RequestMapping(value="/arquivo", method = RequestMethod.POST)
 	public String carregarArquivo(ArquivoConteudo arquivoConteudo) {
 		log.info("carregarArquivo "+arquivoConteudo.getArquivo().getOriginalFilename());
 		
@@ -89,10 +90,10 @@ public class ArquivoController {
 			repositorioArquivos.gravar(arquivoConteudo);
 		}
 		
-		return "redirect:editar/"+hash;
+		return "redirect:arquivo/"+hash+"/metadados";
 	}
 	
-	@RequestMapping(value="editar/{hash}", method = RequestMethod.GET)
+	@RequestMapping(value="/arquivo/{hash}/metadados", method = RequestMethod.GET)
 	public ModelAndView editarMetadados(@PathVariable String hash, ModelAndView mav, HttpServletResponse response) throws IOException {
 		log.info("editarMetadados "+hash);
 		
@@ -106,7 +107,7 @@ public class ArquivoController {
 		return mav;
 	}
 	
-	@RequestMapping(value="editar/{hash}", method = RequestMethod.POST)
+	@RequestMapping(value="/arquivo/{hash}/metadados", method = RequestMethod.POST)
 	public String editarMetadados(@PathVariable String hash, ArquivoMetadados atualizado) {
 		log.info("editarMetadados " + hash + "atualizado: " + atualizado);
 		
@@ -116,33 +117,31 @@ public class ArquivoController {
 		
 		repositorioMetadados.gravar(metadados);
 		
-		return "redirect:/app/arquivo/listar";
+		return "redirect:/app/arquivos/1";
 	}
 	
-	@RequestMapping(value="listar", method = RequestMethod.GET)
-	public ModelAndView listar(Model model) throws Exception {
+	@RequestMapping(value="/arquivos/{pagina}", method = RequestMethod.GET)
+	public ModelAndView listar(@PathVariable int pagina, ArquivoMetadados criterio, Model model, HttpServletRequest request) throws Exception {
 		log.info("listar");
 		
-		ModelAndView modelAndView = new ModelAndView("arquivo/listar");
-		model.addAttribute("lista", repositorioMetadados.buscarTodos());
-		return modelAndView;
+		ModelAndView mav = new ModelAndView("arquivo/listar");
+		List<ArquivoMetadados> lista = repositorioMetadados.buscarPorCriterio(criterio, pagina);
+		mav.addObject("lista", lista);
+		mav.addObject("existePaginaAnterior", pagina > 1);
+		mav.addObject("existePaginaPosterior", lista.size() == RepositorioMetadados.LIMITE);
+		mav.addObject("paginaAtual", pagina);
+		mav.addObject("query",request.getQueryString());
+		return mav;
 	}
 	
-	@RequestMapping(value="consultar", method = RequestMethod.GET)
+	@RequestMapping(value="/arquivos", method = RequestMethod.GET)
 	public ModelAndView consultar(ArquivoMetadados parametros) throws Exception {
 		log.info("consultar");
 		
-		ModelAndView mav = new ModelAndView("arquivo/consultar");
-		if (parametros.getNomeOriginal() != null && parametros.getNomeOriginal().length() > 0) {
-			mav.setViewName("arquivo/listar");
-			mav.addObject("lista", repositorioMetadados.buscarPorNomeOriginal(parametros.getNomeOriginal()));
-			return mav;
-		}
-		
-		return mav;
+		return new ModelAndView("arquivo/consultar");
 	}
 
-	@RequestMapping(value="descarregar/{hash}", method=RequestMethod.GET)
+	@RequestMapping(value="/arquivo/{hash}", method=RequestMethod.GET)
 	public void descarregar(@PathVariable String hash, HttpServletResponse response) throws IOException {
 		log.info("descarregar "+hash);
 		
@@ -164,13 +163,13 @@ public class ArquivoController {
 		repositorioMetadados.incrementarContadorAcesso(hash);
 	}
 	
-	@RequestMapping(value="excluir/{hash}", method=RequestMethod.POST)
+	@RequestMapping(value="/arquivo/{hash}", method=RequestMethod.DELETE)
 	public String excluir(@PathVariable String hash) throws IOException {
 		log.info("excluir "+hash);
 		
 		repositorioArquivos.exclui(hash);
 		repositorioMetadados.exclui(hash);
 		
-		return "redirect:/app/arquivo/listar";
+		return "redirect:/app/arquivos/1";
 	}
 }

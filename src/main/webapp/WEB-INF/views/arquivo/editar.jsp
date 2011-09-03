@@ -10,9 +10,9 @@
     </head>
     <body>
     	<h2>Gerenciador de Arquivos</h2>
-    	<a href="../consultar">Consulta</a> | <a href="../carregar">Carregar Arquivo</a> | <a href="../listar">Listar Todos</a>
+    	<a href="../../arquivos">Consulta</a> | <a href="../../arquivo">Carregar Arquivo</a> | <a href="../../arquivos/1">Listar Todos</a>
     	<hr>
-        <form:form modelAttribute="arquivo" method="post">
+        <form:form modelAttribute="arquivo" method="post" >
             <fieldset>
                 <legend>Metadados</legend>
                 <table>
@@ -33,12 +33,12 @@
             </fieldset>
         </form:form>
         
-        <form action="../excluir/${arquivo.id}" method="post">
+        <form:form method="delete" action="../${arquivo.id}">
         	<input type="submit" value="Excluir Arquivo"/>
-        </form>
+        </form:form>
         
-        <form action="../descarregar/${arquivo.id}" method="get">
+        <form:form method="get" action="../${arquivo.id}">
         	<input type="submit" value="Descarregar Arquivo"/>
-        </form>
+        </form:form>
     </body>
 </html>

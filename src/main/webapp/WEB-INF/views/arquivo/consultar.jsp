@@ -10,9 +10,9 @@
     </head>
     <body>
     	<h2>Gerenciador de Arquivos</h2>
-    	<a href="consultar">Consulta</a> | <a href="carregar">Carregar Arquivo</a> | <a href="listar">Listar Todos</a>
+    	<a href="arquivos">Consulta</a> | <a href="arquivo">Carregar Arquivo</a> | <a href="arquivos/1">Listar Todos</a>
     	<hr>
-        <form:form modelAttribute="arquivoMetadados" method="get">
+        <form:form modelAttribute="arquivoMetadados" method="get" action="arquivos/1">
             <fieldset>
                 <legend>Busca por Nome</legend>
                 <table>
