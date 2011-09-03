@@ -2,23 +2,32 @@
 <%@page pageEncoding="UTF-8" %>
 <%@ page session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"  %>
 
 <html>
+    <fmt:setBundle basename="com.javahero.fileshare.Messages" var="bundle"/>
     <head>
         <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <title>Gerenciador de Arquivos - Listar</title>
+        <title><fmt:message key="aplicacao.nome" bundle="${bundle}"/> - <fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></title>
     </head>
     <body>
-    	<h2>Gerenciador de Arquivos - Página ${paginaAtual}</h2>
-    	<a href="..">Consulta</a> | <a href="../arquivo">Carregar Arquivo</a> | <a href="1">Listar Todos</a>
+    	<h2><fmt:message key="aplicacao.nome" bundle="${bundle}"/> - 
+    	<fmt:message key="geral.navegacao.pagina" bundle="${bundle}">
+    		<fmt:param value="${paginaAtual}" />
+    	</fmt:message>
+    	
+    	</h2>
+    	<a href=".."><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
+    	<a href="../arquivo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> | 
+    	<a href="1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
     	<hr>
     	<table border="1" width="100%">
     		<tr>
-    			<th>Nome Original</th>
-    			<th>Tamanho</th>
-    			<th>Data Carregamento</th>
-    			<th>Data Acesso</th>
-    			<th>Contador de Acessos</th>
+    			<th><fmt:message key="arquivo.campo.nomeOriginal" bundle="${bundle}"/></th>
+    			<th><fmt:message key="arquivo.campo.tamanho" bundle="${bundle}"/></th>
+    			<th><fmt:message key="arquivo.campo.dataCarregamento" bundle="${bundle}"/></th>
+    			<th><fmt:message key="arquivo.campo.dataAcesso" bundle="${bundle}"/></th>
+    			<th><fmt:message key="arquivo.campo.contadorAcesso" bundle="${bundle}"/></th>
    			</tr>
     	
 	        <c:forEach items="${lista}" var="arquivo">
@@ -34,8 +43,8 @@
 			<tr>
 				<td colspan="5" align="center">
 					<c:choose>
-					<c:when test="${existePaginaAnterior}"><a href="${paginaAtual-1}?${query}">Anterior</a> |</c:when>	
-					<c:otherwise>Anterior |</c:otherwise>
+					<c:when test="${existePaginaAnterior}"><a href="${paginaAtual-1}?${query}"><fmt:message key="geral.navegacao.anterior" bundle="${bundle}"/></a> |</c:when>	
+					<c:otherwise><fmt:message key="geral.navegacao.anterior" bundle="${bundle}"/> |</c:otherwise>
 					</c:choose>
 					
 					<c:forEach var="counter" begin="1" end="${paginaAtual}">
@@ -45,8 +54,8 @@
 					<c:if test="${existePaginaPosterior}"><a href="${paginaAtual+1}?${query}">${paginaAtual+1}</a> |</c:if>
 					
 					<c:choose>
-					<c:when test="${existePaginaPosterior}"><a href="${paginaAtual+1}?${query}">Próxima</a></c:when>	
-					<c:otherwise>Próxima</c:otherwise>
+					<c:when test="${existePaginaPosterior}"><a href="${paginaAtual+1}?${query}"><fmt:message key="geral.navegacao.proxima" bundle="${bundle}"/></a></c:when>	
+					<c:otherwise><fmt:message key="geral.navegacao.proxima" bundle="${bundle}"/></c:otherwise>
 					</c:choose>
 				</td>
 			</tr>
