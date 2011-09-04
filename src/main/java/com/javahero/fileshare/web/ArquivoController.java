@@ -11,6 +11,7 @@ import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,8 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import com.javahero.fileshare.domain.ArquivoConteudo;
 import com.javahero.fileshare.domain.ArquivoMetadados;
@@ -39,6 +39,7 @@ import com.javahero.fileshare.service.RepositorioMetadados;
  * @category WEB
  */
 @Controller
+@RequestMapping(value="arquivos")
 public class ArquivoController {
 	
 	// atributos
@@ -67,7 +68,7 @@ public class ArquivoController {
 	
 	// tratamento de requisições
 	
-	@RequestMapping(value="/arquivo", method = RequestMethod.GET)
+	@RequestMapping(value="/novo", method = RequestMethod.GET)
 	public String selecionarArquivo(Model model) {
 		log.info("selecionarArquivo");
 		
@@ -75,7 +76,7 @@ public class ArquivoController {
 		return "arquivo/carregar";
 	}
 	
-	@RequestMapping(value="/arquivo", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public String carregarArquivo(ArquivoConteudo arquivoConteudo) {
 		log.info("carregarArquivo "+arquivoConteudo.getArquivo().getOriginalFilename());
 		
@@ -93,10 +94,10 @@ public class ArquivoController {
 			repositorioArquivos.gravar(arquivoConteudo);
 		}
 		
-		return "redirect:arquivo/"+hash+"/metadados";
+		return "redirect:"+hash;
 	}
 	
-	@RequestMapping(value="/arquivo/{hash}/metadados", method = RequestMethod.GET)
+	@RequestMapping(value="/{hash}", method = RequestMethod.GET)
 	public ModelAndView editarMetadados(@PathVariable String hash, HttpServletResponse response) throws IOException {
 		log.info("editarMetadados "+hash);
 		
@@ -111,7 +112,7 @@ public class ArquivoController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/arquivo/{hash}/metadados", method = RequestMethod.PUT)
+	@RequestMapping(value="/{hash}", method = RequestMethod.PUT)
 	public String editarMetadados(@PathVariable String hash, ArquivoMetadados atualizado) {
 		log.info("editarMetadados " + hash + "atualizado: " + atualizado);
 		
@@ -121,14 +122,28 @@ public class ArquivoController {
 		
 		repositorioMetadados.gravar(metadados);
 		
-		return "redirect:/app/arquivos/1";
+		return "redirect:/arquivos/listar/1";
 	}
 	
-	@RequestMapping(value="/arquivos/{pagina}", method = RequestMethod.GET)
-	public ModelAndView listar(@PathVariable int pagina, ArquivoMetadados criterio, HttpServletRequest request) throws Exception {
+	@RequestMapping(value="listar", method = RequestMethod.GET)
+	public ModelAndView listar(ArquivoMetadados criterio, HttpServletRequest request) throws Exception {
 		log.info("listar");
-		
+
 		ModelAndView mav = new ModelAndView("arquivo/listar");
+		List<ArquivoMetadados> lista = repositorioMetadados.buscarPorCriterio(criterio);
+		mav.addObject("arquivos", new ArquivoMetadadosList(lista));
+		mav.addObject("existePaginaAnterior", false);
+		mav.addObject("existePaginaPosterior", false);
+		mav.addObject("paginaAtual", 1);
+		mav.addObject("query",request.getQueryString());
+		return mav;
+	}
+	
+	@RequestMapping(value="listar/{pagina}", method = RequestMethod.GET)
+	public ModelAndView listarPagina(@PathVariable(value="pagina") int pagina, ArquivoMetadados criterio, HttpServletRequest request) throws Exception {
+		log.info("listarPAgina "+pagina);
+
+		ModelAndView mav = new ModelAndView("arquivo/listarPagina");
 		List<ArquivoMetadados> lista = repositorioMetadados.buscarPorCriterio(criterio, pagina);
 		mav.addObject("arquivos", new ArquivoMetadadosList(lista));
 		mav.addObject("existePaginaAnterior", pagina > 1);
@@ -138,14 +153,14 @@ public class ArquivoController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/arquivos", method = RequestMethod.GET)
+	@RequestMapping(value="/consultar", method = RequestMethod.GET)
 	public ModelAndView consultar(ArquivoMetadados parametros) throws Exception {
 		log.info("consultar");
 		
 		return new ModelAndView("arquivo/consultar");
 	}
 
-	@RequestMapping(value="/arquivo/{hash}", method=RequestMethod.GET)
+	@RequestMapping(value="/{hash}/descarregar", method=RequestMethod.GET)
 	public void descarregar(@PathVariable String hash, HttpServletResponse response) throws IOException {
 		log.info("descarregar "+hash);
 		
@@ -167,13 +182,13 @@ public class ArquivoController {
 		repositorioMetadados.incrementarContadorAcesso(hash);
 	}
 	
-	@RequestMapping(value="/arquivo/{hash}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/{hash}", method=RequestMethod.DELETE)
 	public String excluir(@PathVariable String hash) throws IOException {
 		log.info("excluir "+hash);
 		
 		repositorioArquivos.exclui(hash);
 		repositorioMetadados.exclui(hash);
 		
-		return "redirect:/app/arquivos/1";
+		return "redirect:/arquivos/listar/1";
 	}
 }

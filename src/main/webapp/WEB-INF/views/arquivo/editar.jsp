@@ -12,9 +12,9 @@
     </head>
     <body>
     	<h2><fmt:message key="aplicacao.nome" bundle="${bundle}"/></h2>
-	    <a href="../../arquivos"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
-    	<a href="../../arquivo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> | 
-    	<a href="../../arquivos/1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
+	    <a href="../consultar"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
+    	<a href="../novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> | 
+    	<a href="../listar/1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
     	<hr>
         <form:form modelAttribute="arquivo" method="put" >
             <fieldset>
@@ -41,7 +41,7 @@
         	<input type="submit" value="<fmt:message key="arquivo.acao.excluir" bundle="${bundle}"/>"/>
         </form:form>
         
-        <form:form method="get" action="../${arquivo.id}">
+        <form:form method="get" action="../${arquivo.id}/descarregar">
         	<input type="submit" value="<fmt:message key="arquivo.acao.descarregar" bundle="${bundle}"/>"/>
         </form:form>
     </body>

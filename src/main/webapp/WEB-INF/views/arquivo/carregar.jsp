@@ -12,9 +12,9 @@
     </head>
     <body>
     	<h2><fmt:message key="aplicacao.nome" bundle="${bundle}"/></h2>
-    	<a href="arquivos"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
+    	<a href="consultar"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
     	<a href=""><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> | 
-    	<a href="arquivos/1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
+    	<a href="listar/1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
     	<hr>
         <form:form modelAttribute="arquivoConteudo" method="post" enctype="multipart/form-data">
             <fieldset>
@@ -31,6 +31,5 @@
 				</table>
             </fieldset>
         </form:form>
-        
     </body>
 </html>

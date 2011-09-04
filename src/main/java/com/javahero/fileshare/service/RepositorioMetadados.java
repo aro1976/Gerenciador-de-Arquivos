@@ -67,6 +67,19 @@ public class RepositorioMetadados {
 		return results;
 	}
 
+	public List<ArquivoMetadados> buscarPorCriterio(ArquivoMetadados criterio) {
+		log.info("buscarPorCriterio "+criterio);
+		
+		Query query = new Query();
+		if (criterio.getNomeOriginal()!=null && !criterio.getNomeOriginal().isEmpty()) {
+			query.addCriteria(where("nomeOriginal").regex("(.*)"+criterio.getNomeOriginal()+"(.*)"));
+		}
+		List<ArquivoMetadados> results = mongoTemplate.find(query, ArquivoMetadados.class);
+		
+		if (log.isDebugEnabled()) log.debug("results: "+results);
+		return results;
+	}
+	
 	public List<ArquivoMetadados> buscarPorCriterio(ArquivoMetadados criterio, int pagina) {
 		log.info("buscarPorCriterio "+criterio+ " pagina "+pagina);
 		

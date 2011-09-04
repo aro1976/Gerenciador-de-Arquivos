@@ -12,11 +12,11 @@
     </head>
     <body>
     	<h2><fmt:message key="aplicacao.nome" bundle="${bundle}"/></h2>
- 		<a href="arquivos"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
-    	<a href="arquivo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> | 
-    	<a href="arquivos/1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
+ 		<a href="consultar"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
+    	<a href="novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> | 
+    	<a href="listar/1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
     	<hr>
-        <form:form modelAttribute="arquivoMetadados" method="get" action="arquivos/1">
+        <form:form modelAttribute="arquivoMetadados" method="get" action="listar/1">
             <fieldset>
                 <legend><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></legend>
                 <table>

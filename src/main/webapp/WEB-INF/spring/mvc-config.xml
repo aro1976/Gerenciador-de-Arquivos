@@ -11,7 +11,7 @@
 	<mvc:annotation-driven />
 
 	<!-- Forwards requests to the "/" resource to the "welcome" view -->
-	<mvc:view-controller path="/" view-name="redirect:/app/arquivos"/>
+	<mvc:view-controller path="/" view-name="redirect:/arquivos/consultar"/>
 
 	<bean id="contentNegotiatingViewResolver" 
 	   class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"

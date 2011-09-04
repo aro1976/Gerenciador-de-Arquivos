@@ -12,11 +12,14 @@
     </head>
     <body>
     	<h2><fmt:message key="aplicacao.nome" bundle="${bundle}"/> - 
+    	<fmt:message key="geral.navegacao.pagina" bundle="${bundle}">
+    		<fmt:param value="${paginaAtual}" />
+    	</fmt:message>
     	
     	</h2>
     	<a href="../consultar"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
     	<a href="../novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> | 
-    	<a href=""><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
+    	<a href="1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
     	<hr>
     	<table border="1" width="100%">
     		<tr>
@@ -29,13 +32,33 @@
     	
 	        <c:forEach items="${arquivos.arquivoMetadadosList}" var="arquivo">
 	        	<tr>
-					<td><a href="../arquivos/${arquivo.id}">${arquivo.nomeOriginal}</a></td>
+					<td><a href="../../arquivos/${arquivo.id}">${arquivo.nomeOriginal}</a></td>
 	    			<td>${arquivo.tamanho}</td>
     				<td>${arquivo.dataCarregamento}</td>
     				<td>${arquivo.dataAcesso}</td>
     				<td>${arquivo.contadorAcesso}</td>
 				</tr>
 			</c:forEach>
+		
+			<tr>
+				<td colspan="5" align="center">
+					<c:choose>
+					<c:when test="${existePaginaAnterior}"><a href="${paginaAtual-1}?${query}"><fmt:message key="geral.navegacao.anterior" bundle="${bundle}"/></a> |</c:when>	
+					<c:otherwise><fmt:message key="geral.navegacao.anterior" bundle="${bundle}"/> |</c:otherwise>
+					</c:choose>
+					
+					<c:forEach var="counter" begin="1" end="${paginaAtual}">
+		        		<a href="${counter}?${query}">${counter}</a> |
+					</c:forEach>
+					
+					<c:if test="${existePaginaPosterior}"><a href="${paginaAtual+1}?${query}">${paginaAtual+1}</a> |</c:if>
+					
+					<c:choose>
+					<c:when test="${existePaginaPosterior}"><a href="${paginaAtual+1}?${query}"><fmt:message key="geral.navegacao.proxima" bundle="${bundle}"/></a></c:when>	
+					<c:otherwise><fmt:message key="geral.navegacao.proxima" bundle="${bundle}"/></c:otherwise>
+					</c:choose>
+				</td>
+			</tr>
 		</table>
     </body>
 </html>
