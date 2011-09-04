@@ -20,10 +20,13 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.javahero.fileshare.domain.ArquivoConteudo;
 import com.javahero.fileshare.domain.ArquivoMetadados;
+import com.javahero.fileshare.domain.ArquivoMetadadosList;
 import com.javahero.fileshare.service.Configuracao;
 import com.javahero.fileshare.service.RepositorioArquivos;
 import com.javahero.fileshare.service.RepositorioMetadados;
@@ -94,7 +97,7 @@ public class ArquivoController {
 	}
 	
 	@RequestMapping(value="/arquivo/{hash}/metadados", method = RequestMethod.GET)
-	public ModelAndView editarMetadados(@PathVariable String hash, ModelAndView mav, HttpServletResponse response) throws IOException {
+	public ModelAndView editarMetadados(@PathVariable String hash, HttpServletResponse response) throws IOException {
 		log.info("editarMetadados "+hash);
 		
 		ArquivoMetadados metadados = repositorioMetadados.buscarPorHash(hash);
@@ -102,12 +105,13 @@ public class ArquivoController {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}
 		
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("arquivo", metadados);
 		mav.setViewName("arquivo/editar");
 		return mav;
 	}
 	
-	@RequestMapping(value="/arquivo/{hash}/metadados", method = RequestMethod.POST)
+	@RequestMapping(value="/arquivo/{hash}/metadados", method = RequestMethod.PUT)
 	public String editarMetadados(@PathVariable String hash, ArquivoMetadados atualizado) {
 		log.info("editarMetadados " + hash + "atualizado: " + atualizado);
 		
@@ -121,12 +125,12 @@ public class ArquivoController {
 	}
 	
 	@RequestMapping(value="/arquivos/{pagina}", method = RequestMethod.GET)
-	public ModelAndView listar(@PathVariable int pagina, ArquivoMetadados criterio, Model model, HttpServletRequest request) throws Exception {
+	public ModelAndView listar(@PathVariable int pagina, ArquivoMetadados criterio, HttpServletRequest request) throws Exception {
 		log.info("listar");
 		
 		ModelAndView mav = new ModelAndView("arquivo/listar");
 		List<ArquivoMetadados> lista = repositorioMetadados.buscarPorCriterio(criterio, pagina);
-		mav.addObject("lista", lista);
+		mav.addObject("arquivos", new ArquivoMetadadosList(lista));
 		mav.addObject("existePaginaAnterior", pagina > 1);
 		mav.addObject("existePaginaPosterior", lista.size() == RepositorioMetadados.LIMITE);
 		mav.addObject("paginaAtual", pagina);

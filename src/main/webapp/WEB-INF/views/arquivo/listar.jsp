@@ -30,7 +30,7 @@
     			<th><fmt:message key="arquivo.campo.contadorAcesso" bundle="${bundle}"/></th>
    			</tr>
     	
-	        <c:forEach items="${lista}" var="arquivo">
+	        <c:forEach items="${arquivos.arquivoMetadadosList}" var="arquivo">
 	        	<tr>
 					<td><a href="../arquivo/${arquivo.id}/metadados">${arquivo.nomeOriginal}</a></td>
 	    			<td>${arquivo.tamanho}</td>

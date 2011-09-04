@@ -2,6 +2,8 @@ package com.javahero.fileshare.domain;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.document.mongodb.mapping.Document;
 
@@ -12,6 +14,7 @@ import org.springframework.data.document.mongodb.mapping.Document;
  * @category Domain
  */
 @Document
+@XmlRootElement(name="arquivo")
 public class ArquivoMetadados {
 
 	// atributos
@@ -39,7 +42,7 @@ public class ArquivoMetadados {
 	}
 
 	// métodos de acesso
-	
+
 	public String getId() {
 		return id;
 	}

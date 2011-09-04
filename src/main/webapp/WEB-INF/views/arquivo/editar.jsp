@@ -16,7 +16,7 @@
     	<a href="../../arquivo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> | 
     	<a href="../../arquivos/1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
     	<hr>
-        <form:form modelAttribute="arquivo" method="post" >
+        <form:form modelAttribute="arquivo" method="put" >
             <fieldset>
                 <legend><fmt:message key="arquivo.campo.metadados" bundle="${bundle}"/></legend>
                 <table>
