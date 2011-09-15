@@ -1,8 +1,11 @@
 <%@page contentType="text/html;charset=UTF-8" %>
 <%@page pageEncoding="UTF-8" %>
 <%@ page session="false" %>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"  %>
+
 
 <html>
     <fmt:setBundle basename="com.javahero.fileshare.Messages" var="bundle"/>
@@ -15,7 +18,7 @@
     	
     	</h2>
     	<a href="../consultar"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
-    	<a href="../novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> | 
+    	<sec:authorize access="hasRole('ROLE_MANAGER')"><a href="../novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> |</sec:authorize>
     	<a href=""><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
     	<hr>
     	<table border="1" width="100%">

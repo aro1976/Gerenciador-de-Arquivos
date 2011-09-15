@@ -2,6 +2,7 @@
 <%@page pageEncoding="UTF-8" %>
 <%@ page session="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"  %>
 
 <html>
@@ -13,8 +14,9 @@
     <body>
     	<h2><fmt:message key="aplicacao.nome" bundle="${bundle}"/></h2>
  		<a href="consultar"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
-    	<a href="novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> | 
+    	<sec:authorize access="hasRole('ROLE_MANAGER')"><a href="novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> |</sec:authorize>
     	<a href="listar/1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
+    	<span style="float: right;"><a href="../spring_security_login">Login</a> | <a href="../spring_security_logout">Logout</a></span>
     	<hr>
         <form:form modelAttribute="arquivoMetadados" method="get" action="listar/1">
             <fieldset>

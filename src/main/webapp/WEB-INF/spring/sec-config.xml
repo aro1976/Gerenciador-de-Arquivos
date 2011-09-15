@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - Sample namespace-based configuration
+  -
+  -->
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+    <global-method-security pre-post-annotations="enabled" secured-annotations="enabled"/>
+
+    <http use-expressions="true">
+    	<intercept-url pattern="/spring*" access="permitAll" />
+    	<intercept-url pattern="/" access="isAuthenticated()" />
+    	<intercept-url pattern="/arquivos/novo" access="hasRole('ROLE_MANAGER')"/>
+        <intercept-url pattern="/arquivos/**" access="hasRole('ROLE_MANAGER')" method="DELETE"/>
+        <intercept-url pattern="/arquivos/**" access="hasRole('ROLE_MANAGER')" method="POST"/>
+        <intercept-url pattern="/arquivos/**" access="hasRole('ROLE_MANAGER')" method="PUT"/>
+        <intercept-url pattern="/arquivos/**" access="isAuthenticated()" />
+        <!-- Disable web URI authorization, as we're using <global-method-security> and have @Secured the services layer instead
+        <intercept-url pattern="/listAccounts.html" access="isRememberMe()" />
+        <intercept-url pattern="/post.html" access="hasRole('ROLE_TELLER')" />
+        -->
+        <intercept-url pattern="/**" access="denyAll" />
+        
+        <form-login />
+        
+        <logout logout-url="/spring_security_logout"/>
+        
+        <remember-me />
+        
+        <!-- Uncomment to limit the number of sessions a user can have -->
+        <session-management>
+            <concurrency-control max-sessions="1" />
+        </session-management>
+
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+        	<password-encoder hash="plaintext"/>
+            <user-service>
+                <user name="rod" password="koala" authorities="ROLE_MANAGER, ROLE_USER," />
+                <user name="dianne" password="emu" authorities="ROLE_USER" />
+                <user name="scott" password="wombat" authorities="ROLE_USER" />
+                <user name="peter" password="opal" authorities="ROLE_USER" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>

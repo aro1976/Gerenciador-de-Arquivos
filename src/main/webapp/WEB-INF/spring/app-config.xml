@@ -12,6 +12,9 @@
     <!-- Configures Spring MVC -->
     <import resource="mvc-config.xml"/>
 
+    <!-- Configures Security -->
+    <import resource="sec-config.xml"/>
+    
     <!-- Configure the multipart resolver -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!-- file limit -->

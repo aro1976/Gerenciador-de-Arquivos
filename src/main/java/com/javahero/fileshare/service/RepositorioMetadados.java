@@ -31,7 +31,7 @@ public class RepositorioMetadados {
 	
 	private static final Logger log = Logger.getLogger(RepositorioMetadados.class);
 
-	public static final int LIMITE = 4;
+	public static final int LIMITE = 20;
 	
 	@Autowired
 	MongoTemplate mongoTemplate;

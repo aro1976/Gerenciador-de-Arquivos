@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -123,6 +125,8 @@ public class ArquivoController {
 		return "redirect:/arquivos/listar/1";
 	}
 	
+	//@PreAuthorize("hasRole('ROLE_USER')")
+	//@PostFilter("hasPermission(filterObject, 'read') or hasPermission(filterObject, 'admin')")
 	@RequestMapping(value="listar", method = RequestMethod.GET)
 	public ModelAndView listar(ArquivoMetadados criterio, HttpServletRequest request) throws Exception {
 		log.info("listar");

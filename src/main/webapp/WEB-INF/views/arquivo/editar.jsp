@@ -2,6 +2,8 @@
 <%@page pageEncoding="UTF-8" %>
 <%@ page session="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"  %>
 
 <html>
@@ -13,7 +15,7 @@
     <body>
     	<h2><fmt:message key="aplicacao.nome" bundle="${bundle}"/></h2>
 	    <a href="consultar"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
-    	<a href="novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> | 
+    	<sec:authorize access="hasRole('ROLE_MANAGER')"><a href="novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> |</sec:authorize>
     	<a href="listar/1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
     	<hr>
         <form:form modelAttribute="arquivo" method="put" >
@@ -37,9 +39,11 @@
             </fieldset>
         </form:form>
         
-        <form:form method="delete" action="${arquivo.id}">
-        	<input type="submit" value="<fmt:message key="arquivo.acao.excluir" bundle="${bundle}"/>"/>
-        </form:form>
+        <sec:authorize access="hasRole('ROLE_MANAGER')">
+	        <form:form method="delete" action="${arquivo.id}">
+	        	<input type="submit" value="<fmt:message key="arquivo.acao.excluir" bundle="${bundle}"/>"/>
+	        </form:form>
+        </sec:authorize>
         
         <form:form method="get" action="${arquivo.id}/descarregar">
         	<input type="submit" value="<fmt:message key="arquivo.acao.descarregar" bundle="${bundle}"/>"/>
