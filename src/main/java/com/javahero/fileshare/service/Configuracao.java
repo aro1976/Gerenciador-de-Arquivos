@@ -30,7 +30,7 @@ public class Configuracao {
 	@PostConstruct
 	public void init() {
 		Map<String, String> env = System.getenv();
-		home = env.containsKey("FILESHARE_DATA") ? env.get("FILESHARE_HOME") : "/opt/fileshare";
+		home = env.containsKey("FILESHARE_HOME") ? env.get("FILESHARE_HOME") : "/opt/fileshare";
 		dataPath = env.containsKey("FILESHARE_DATA") ? env.get("FILESHARE_DATA") : home + File.separator + "data";	
 		dataPathDir = new File(getDataPath());
 		
