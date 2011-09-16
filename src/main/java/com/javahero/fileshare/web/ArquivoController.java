@@ -25,10 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.javahero.fileshare.domain.ArquivoConteudo;
 import com.javahero.fileshare.domain.ArquivoMetadados;
 import com.javahero.fileshare.domain.ArquivoMetadadosList;
+import com.javahero.fileshare.security.ServicoSeguranca;
 import com.javahero.fileshare.service.Configuracao;
 import com.javahero.fileshare.service.RepositorioArquivos;
 import com.javahero.fileshare.service.RepositorioMetadados;
-import com.javahero.fileshare.service.ServicoSeguranca;
 
 /**
  * Controla o acesso á aplicação, delegando a execução das regras de negócio para os serviços e 
@@ -93,6 +93,7 @@ public class ArquivoController {
 			metadados.setTipoConteudo(arquivoConteudo.getArquivo().getContentType());
 			metadados.setTamanho(arquivoConteudo.getArquivo().getSize());
 			metadados.setUsuarioCriou(servicoSeguranca.obtemUsuario());
+			metadados.setUsuarioAtualizou(servicoSeguranca.obtemUsuario());
 			repositorioMetadados.gravar(metadados);
 			repositorioArquivos.gravar(arquivoConteudo);
 		}

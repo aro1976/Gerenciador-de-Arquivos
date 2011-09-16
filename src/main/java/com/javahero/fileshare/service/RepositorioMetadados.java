@@ -14,6 +14,7 @@ import org.springframework.data.document.mongodb.query.Index;
 import org.springframework.data.document.mongodb.query.Order;
 import org.springframework.data.document.mongodb.query.Query;
 import org.springframework.data.document.mongodb.query.Update;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Repository;
 
 import com.javahero.fileshare.domain.ArquivoMetadados;

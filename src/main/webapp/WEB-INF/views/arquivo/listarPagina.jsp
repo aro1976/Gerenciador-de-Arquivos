@@ -47,7 +47,7 @@
 			</c:forEach>
 		
 			<tr>
-				<td colspan="5" align="center">
+				<td colspan="7" align="center">
 					<c:choose>
 					<c:when test="${existePaginaAnterior}"><a href="${paginaAtual-1}?${query}"><fmt:message key="geral.navegacao.anterior" bundle="${bundle}"/></a> |</c:when>	
 					<c:otherwise><fmt:message key="geral.navegacao.anterior" bundle="${bundle}"/> |</c:otherwise>
