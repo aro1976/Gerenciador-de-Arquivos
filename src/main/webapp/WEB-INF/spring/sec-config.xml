@@ -22,7 +22,11 @@
 	</beans:bean>
 	
     <http use-expressions="true">
-    	<intercept-url pattern="/spring*" access="permitAll" />
+		<form-login login-processing-url="/resources/j_spring_security_check"
+			login-page="/login" authentication-failure-url="/login?login_error=t" />
+		<logout logout-url="/resources/j_spring_security_logout" />
+		<intercept-url pattern="/login*" access="permitAll()" />
+		<intercept-url pattern="/resources/**" access="permitAll()" />
     	<intercept-url pattern="/" access="isAuthenticated()" />
     	<intercept-url pattern="/arquivos/novo" access="hasRole('ROLE_MANAGER')"/>
         <intercept-url pattern="/arquivos/**" access="hasRole('ROLE_MANAGER')" method="DELETE"/>
@@ -34,10 +38,6 @@
         <intercept-url pattern="/post.html" access="hasRole('ROLE_TELLER')" />
         -->
         <intercept-url pattern="/**" access="denyAll" />
-        
-        <form-login />
-        
-        <logout logout-url="/spring_security_logout"/>
         
         <remember-me />
         

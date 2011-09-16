@@ -75,7 +75,7 @@ public class ArquivoController {
 		log.info("selecionarArquivo");
 		
 		model.addAttribute(new ArquivoConteudo());
-		return "arquivo/carregar";
+		return "arquivos/carregar";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -112,7 +112,7 @@ public class ArquivoController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("arquivo", metadados);
-		mav.setViewName("arquivo/editar");
+		mav.setViewName("arquivos/editar");
 		return mav;
 	}
 	
@@ -135,7 +135,7 @@ public class ArquivoController {
 	public ModelAndView listar(ArquivoMetadados criterio, HttpServletRequest request) throws Exception {
 		log.info("listar");
 
-		ModelAndView mav = new ModelAndView("arquivo/listar");
+		ModelAndView mav = new ModelAndView("arquivos/listar");
 		List<ArquivoMetadados> lista = repositorioMetadados.buscarPorCriterio(criterio);
 		mav.addObject("arquivos", new ArquivoMetadadosList(lista));
 		mav.addObject("existePaginaAnterior", false);
@@ -163,7 +163,7 @@ public class ArquivoController {
 	public ModelAndView consultar(ArquivoMetadados parametros) throws Exception {
 		log.info("consultar");
 		
-		return new ModelAndView("arquivo/consultar");
+		return new ModelAndView("arquivos/consultar");
 	}
 
 	@RequestMapping(value="/{hash}/descarregar", method=RequestMethod.GET)
