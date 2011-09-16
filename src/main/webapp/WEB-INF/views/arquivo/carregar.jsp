@@ -14,7 +14,7 @@
     <body>
     	<h2><fmt:message key="aplicacao.nome" bundle="${bundle}"/></h2>
     	<a href="consultar"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
-    	<sec:authorize access="hasRole('ROLE_MANAGER')"><a href=""><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> |</sec:authorize> 
+    	<sec:authorize url="/arquivos/novo"><a href=""><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> |</sec:authorize> 
     	<a href="listar/1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
     	<hr>
         <form:form modelAttribute="arquivoConteudo" method="post" enctype="multipart/form-data">
@@ -26,9 +26,11 @@
 	                    <td><form:input path="arquivo" type="file" size="100"/></td>
 	                </tr>
 	
+					<sec:authorize url="/arquivos/**" method="POST">
 	                <tr>
 	                    <td colspan="2"><input type="submit" value="<fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/>"/></td>
 	                </tr>
+	                </sec:authorize>
 				</table>
             </fieldset>
         </form:form>

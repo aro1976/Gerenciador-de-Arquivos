@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostFilter;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -30,6 +28,7 @@ import com.javahero.fileshare.domain.ArquivoMetadadosList;
 import com.javahero.fileshare.service.Configuracao;
 import com.javahero.fileshare.service.RepositorioArquivos;
 import com.javahero.fileshare.service.RepositorioMetadados;
+import com.javahero.fileshare.service.ServicoSeguranca;
 
 /**
  * Controla o acesso á aplicação, delegando a execução das regras de negócio para os serviços e 
@@ -64,6 +63,9 @@ public class ArquivoController {
 	RepositorioArquivos repositorioArquivos;
 	
 	@Autowired
+	ServicoSeguranca servicoSeguranca;
+	
+	@Autowired
 	Configuracao fileConfig;
 	
 	// tratamento de requisições
@@ -90,6 +92,7 @@ public class ArquivoController {
 			metadados.setNomeOriginal(arquivoConteudo.getArquivo().getOriginalFilename());
 			metadados.setTipoConteudo(arquivoConteudo.getArquivo().getContentType());
 			metadados.setTamanho(arquivoConteudo.getArquivo().getSize());
+			metadados.setUsuarioCriou(servicoSeguranca.obtemUsuario());
 			repositorioMetadados.gravar(metadados);
 			repositorioArquivos.gravar(arquivoConteudo);
 		}
@@ -119,7 +122,7 @@ public class ArquivoController {
 		ArquivoMetadados metadados = repositorioMetadados.buscarPorHash(hash);
 		metadados.setNomeOriginal(atualizado.getNomeOriginal());
 		metadados.setNotas(atualizado.getNotas());
-		
+		metadados.setUsuarioAtualizou(servicoSeguranca.obtemUsuario());
 		repositorioMetadados.gravar(metadados);
 		
 		return "redirect:/arquivos/listar/1";

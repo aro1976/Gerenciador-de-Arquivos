@@ -15,7 +15,7 @@
     <body>
     	<h2><fmt:message key="aplicacao.nome" bundle="${bundle}"/></h2>
 	    <a href="consultar"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
-    	<sec:authorize access="hasRole('ROLE_MANAGER')"><a href="novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> |</sec:authorize>
+    	<sec:authorize url="/arquivos/novo"><a href="novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> |</sec:authorize>
     	<a href="listar/1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
     	<hr>
         <form:form modelAttribute="arquivo" method="put" >
@@ -32,21 +32,26 @@
                     <td><form:input path="notas" size="100"/></td>
                 </tr>
               
+              	<sec:authorize url="/arquivos/**" method="PUT">
                 <tr>
                     <td colspan="2"><input type="submit" value="<fmt:message key="arquivo.acao.editar" bundle="${bundle}"/>"/></td>
                 </tr>
+                </sec:authorize>
+                
 				</table>
             </fieldset>
         </form:form>
         
-        <sec:authorize access="hasRole('ROLE_MANAGER')">
+        <sec:authorize url="/arquivos/**" method="DELETE">
 	        <form:form method="delete" action="${arquivo.id}">
 	        	<input type="submit" value="<fmt:message key="arquivo.acao.excluir" bundle="${bundle}"/>"/>
 	        </form:form>
         </sec:authorize>
         
+        <sec:authorize url="/arquivos/**/descarregar" method="GET">
         <form:form method="get" action="${arquivo.id}/descarregar">
         	<input type="submit" value="<fmt:message key="arquivo.acao.descarregar" bundle="${bundle}"/>"/>
         </form:form>
+        </sec:authorize>
     </body>
 </html>

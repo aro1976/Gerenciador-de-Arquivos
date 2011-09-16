@@ -20,7 +20,7 @@
     	
     	</h2>
     	<a href="../consultar"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
-    	<sec:authorize access="hasRole('ROLE_MANAGER')"><a href="../novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> |</sec:authorize> 
+    	<sec:authorize url="/arquivos/novo"><a href="../novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> |</sec:authorize> 
     	<a href="1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
     	<hr>
     	<table border="1" width="100%">
@@ -28,6 +28,8 @@
     			<th><fmt:message key="arquivo.campo.nomeOriginal" bundle="${bundle}"/></th>
     			<th><fmt:message key="arquivo.campo.tamanho" bundle="${bundle}"/></th>
     			<th><fmt:message key="arquivo.campo.dataCarregamento" bundle="${bundle}"/></th>
+    			<th><fmt:message key="arquivo.campo.usuarioCriou" bundle="${bundle}"/></th>
+    			<th><fmt:message key="arquivo.campo.usuarioAtualizou" bundle="${bundle}"/></th>
     			<th><fmt:message key="arquivo.campo.dataAcesso" bundle="${bundle}"/></th>
     			<th><fmt:message key="arquivo.campo.contadorAcesso" bundle="${bundle}"/></th>
    			</tr>
@@ -37,6 +39,8 @@
 					<td><a href="../../arquivos/${arquivo.id}">${arquivo.nomeOriginal}</a></td>
 	    			<td>${arquivo.tamanho}</td>
     				<td>${arquivo.dataCarregamento}</td>
+ 				    <td>${arquivo.usuarioCriou}</td>
+    				<td>${arquivo.usuarioAtualizou}</td>
     				<td>${arquivo.dataAcesso}</td>
     				<td>${arquivo.contadorAcesso}</td>
 				</tr>

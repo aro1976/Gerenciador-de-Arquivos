@@ -34,6 +34,10 @@ public class ArquivoMetadados {
 
 	private String tipoConteudo;
 
+	private String usuarioCriou;
+	
+	private String usuarioAtualizou;
+	
 	private String notas;
 	
 	// construtor
@@ -99,6 +103,22 @@ public class ArquivoMetadados {
 		this.tipoConteudo = tipoConteudo;
 	}
 
+	public String getUsuarioCriou() {
+		return usuarioCriou;
+	}
+
+	public void setUsuarioCriou(String usuarioCriou) {
+		this.usuarioCriou = usuarioCriou;
+	}
+
+	public String getUsuarioAtualizou() {
+		return usuarioAtualizou;
+	}
+
+	public void setUsuarioAtualizou(String usuarioAtualizou) {
+		this.usuarioAtualizou = usuarioAtualizou;
+	}
+
 	public String getNotas() {
 		return notas;
 	}
@@ -112,8 +132,10 @@ public class ArquivoMetadados {
 	@Override
 	public String toString() {
 		return "ArquivoMetadados [id=" + id + ", nomeOriginal=" + nomeOriginal
-				+ ", tipoConteudo=" + tipoConteudo + ", tamanho=" + tamanho
 				+ ", dataCarregamento=" + dataCarregamento + ", dataAcesso="
-				+ dataAcesso + ", contadorAcesso=" + contadorAcesso + "]";
+				+ dataAcesso + ", contadorAcesso=" + contadorAcesso
+				+ ", tamanho=" + tamanho + ", tipoConteudo=" + tipoConteudo
+				+ ", usuarioCriou=" + usuarioCriou + ", usuarioAtualizou="
+				+ usuarioAtualizou + ", notas=" + notas + "]";
 	}
 }
