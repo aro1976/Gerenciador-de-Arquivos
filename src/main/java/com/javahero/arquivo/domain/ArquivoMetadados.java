@@ -1,4 +1,4 @@
-package com.javahero.fileshare.domain;
+package com.javahero.arquivo.domain;
 
 import java.util.Date;
 

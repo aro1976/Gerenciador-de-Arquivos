@@ -1,4 +1,4 @@
-package com.javahero.fileshare.service;
+package com.javahero.arquivo.service;
 
 import java.io.File;
 import java.util.Map;

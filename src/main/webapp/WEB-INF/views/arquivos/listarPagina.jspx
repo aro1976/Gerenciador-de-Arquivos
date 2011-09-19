@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <div xmlns:sec="http://www.springframework.org/security/tags" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" version="2.0">
-	<fmt:setBundle basename="com.javahero.fileshare.Messages" var="bundle"/>
+	<fmt:setBundle basename="com.javahero.arquivo.Messages" var="bundle"/>
     <jsp:output omit-xml-declaration="yes"/>
     
     	<table border="1" width="100%">

@@ -1,4 +1,4 @@
-package com.javahero.fileshare.domain;
+package com.javahero.arquivo.domain;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class ArquivoMetadadosList {
 	public List<ArquivoMetadados> getArquivoMetadadosList() {
 		return arquivoMetadadosList;
 	}
-	public void setEmployees(List<ArquivoMetadados> arquivoMetadadosList) {
+	public void setArquivoMetadadosList(List<ArquivoMetadados> arquivoMetadadosList) {
 		this.arquivoMetadadosList = arquivoMetadadosList;
 	}
 }

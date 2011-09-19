@@ -69,7 +69,9 @@
 		    		<property name="renderedAttributes">
 				        <set>
 				            <value>arquivo</value>  
-				            <value>arquivos</value>            
+				            <value>arquivos</value>  
+				            <value>documento</value>  
+				            <value>documentos</value>             
 				        </set>
 				    </property>
 		    	</bean>
@@ -84,8 +86,10 @@
 	<bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
 	  	<property name="classesToBeBound">
 			<list>
-				<value>com.javahero.fileshare.domain.ArquivoMetadados</value>
-				<value>com.javahero.fileshare.domain.ArquivoMetadadosList</value>
+				<value>com.javahero.arquivo.domain.ArquivoMetadados</value>
+				<value>com.javahero.arquivo.domain.ArquivoMetadadosList</value>
+				<value>com.javahero.documento.domain.Documento</value>
+				<value>com.javahero.documento.domain.DocumentoList</value>
 			</list>
 		</property>
 	</bean>

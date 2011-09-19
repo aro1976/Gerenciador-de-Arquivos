@@ -1,4 +1,4 @@
-package com.javahero.fileshare.service;
+package com.javahero.arquivo.service;
 
 import java.io.File;
 
@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.javahero.fileshare.domain.ArquivoConteudo;
+import com.javahero.arquivo.domain.ArquivoConteudo;
 
 /**
  * Gerencia a persistência dos arquivos no sistema operacional

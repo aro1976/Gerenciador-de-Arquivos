@@ -1,4 +1,4 @@
-package com.javahero.fileshare.domain;
+package com.javahero.arquivo.domain;
 
 import java.io.IOException;
 
@@ -58,6 +58,6 @@ public class ArquivoConteudo {
 	
 	@Override
 	public String toString() {
-		return "ArquivoConteudo [arquivo=" + arquivo + ", hash="+ calcularHash()+"]";
+		return "Documento [arquivo=" + arquivo + ", hash="+ calcularHash()+"]";
 	}
 }

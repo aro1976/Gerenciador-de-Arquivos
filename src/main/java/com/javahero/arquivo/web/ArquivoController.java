@@ -1,4 +1,4 @@
-package com.javahero.fileshare.web;
+package com.javahero.arquivo.web;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.javahero.fileshare.domain.ArquivoConteudo;
-import com.javahero.fileshare.domain.ArquivoMetadados;
-import com.javahero.fileshare.domain.ArquivoMetadadosList;
-import com.javahero.fileshare.service.Configuracao;
-import com.javahero.fileshare.service.RepositorioArquivos;
-import com.javahero.fileshare.service.RepositorioMetadados;
+import com.javahero.arquivo.domain.ArquivoConteudo;
+import com.javahero.arquivo.domain.ArquivoMetadados;
+import com.javahero.arquivo.domain.ArquivoMetadadosList;
+import com.javahero.arquivo.service.Configuracao;
+import com.javahero.arquivo.service.RepositorioArquivos;
+import com.javahero.arquivo.service.RepositorioMetadados;
 import com.javahero.seguranca.ServicoSeguranca;
 
 /**

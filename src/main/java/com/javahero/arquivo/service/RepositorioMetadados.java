@@ -1,4 +1,4 @@
-package com.javahero.fileshare.service;
+package com.javahero.arquivo.service;
 
 import static org.springframework.data.document.mongodb.query.Criteria.where;
 
@@ -17,7 +17,7 @@ import org.springframework.data.document.mongodb.query.Update;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Repository;
 
-import com.javahero.fileshare.domain.ArquivoMetadados;
+import com.javahero.arquivo.domain.ArquivoMetadados;
 
 /**
  * Gerencia a persisência dos Metadados no MongoDB
