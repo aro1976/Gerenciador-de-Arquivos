@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+	<definition extends="default" name="documentos/novo">
+		<put-attribute name="body"
+			value="/WEB-INF/views/documentos/novo.jspx" />
+	</definition>
+	<definition extends="default" name="documentos/consultar">
+		<put-attribute name="body"
+			value="/WEB-INF/views/documentos/consultar.jspx" />
+	</definition>
+	<definition extends="default" name="documentos/editar">
+		<put-attribute name="body"
+			value="/WEB-INF/views/documentos/editar.jspx" />
+	</definition>
+	<definition extends="default" name="documentos/listar">
+		<put-attribute name="body"
+			value="/WEB-INF/views/documentos/listar.jspx" />
+	</definition>
+	<definition extends="default" name="documentos/listarPagina">
+		<put-attribute name="body"
+			value="/WEB-INF/views/documentos/listarPagina.jspx" />
+	</definition>
+</tiles-definitions>
