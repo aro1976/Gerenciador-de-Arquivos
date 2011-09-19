@@ -1,17 +1,21 @@
-package com.javahero.fileshare.security;
+package com.javahero.seguranca;
 
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 public aspect AspectoEntidadeSegura {
 
-	declare parents : com.javahero.fileshare.domain.* implements EntidadeSegura;
+	declare parents : com.javahero.**.domain.* implements EntidadeSegura;
  
  	@Transient
-	private transient boolean EntidadeSegura.exlcuivel = false;
+	private transient boolean EntidadeSegura.exlcuivel = true;
 	
 	@Transient
-	private transient boolean EntidadeSegura.atualizavel = false;
+	private transient boolean EntidadeSegura.atualizavel = true;
 
+	@JsonIgnore
+	@XmlTransient
 	public boolean EntidadeSegura.isExcluivel() {
 		return exlcuivel;
 	}
@@ -20,6 +24,8 @@ public aspect AspectoEntidadeSegura {
 		this.exlcuivel = exlcuivel;
 	}
 
+	@JsonIgnore
+    @XmlTransient
 	public boolean EntidadeSegura.isAtualizavel() {
 		return atualizavel;
 	}

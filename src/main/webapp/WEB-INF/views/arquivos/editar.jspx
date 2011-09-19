@@ -1,23 +1,8 @@
-<%@page contentType="text/html;charset=UTF-8" %>
-<%@page pageEncoding="UTF-8" %>
-<%@ page session="false" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"  %>
-
-<html>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:sec="http://www.springframework.org/security/tags" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" version="2.0">
 	<fmt:setBundle basename="com.javahero.fileshare.Messages" var="bundle"/>
-    <head>
-        <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <title><fmt:message key="aplicacao.nome" bundle="${bundle}"/> - <fmt:message key="arquivo.acao.editar" bundle="${bundle}"/></title>
-    </head>
-    <body>
-    	<h2><fmt:message key="aplicacao.nome" bundle="${bundle}"/></h2>
-	    <a href="consultar"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
-    	<sec:authorize url="/arquivos/novo"><a href="novo"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> |</sec:authorize>
-    	<a href="listar/1"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
-    	<hr>
+    <jsp:output omit-xml-declaration="yes"/>
+    
         <form:form modelAttribute="arquivo" method="put" >
             <fieldset>
                 <legend><fmt:message key="arquivo.campo.metadados" bundle="${bundle}"/></legend>
@@ -34,7 +19,8 @@
               
               	<sec:authorize url="/arquivos/**" method="PUT">
                 <tr>
-                    <td colspan="2"><input type="submit" value="<fmt:message key="arquivo.acao.editar" bundle="${bundle}"/>"/></td>
+                	<fmt:message key="arquivo.acao.atualizar" bundle="${bundle}" var="arquivo_acao_atualizar"/>
+                    <td colspan="2"><input type="submit" value="${arquivo_acao_atualizar}"/></td>
                 </tr>
                 </sec:authorize>
                 
@@ -44,14 +30,15 @@
         
         <sec:authorize url="/arquivos/**" method="DELETE">
 	        <form:form method="delete" action="${arquivo.id}">
-	        	<input type="submit" value="<fmt:message key="arquivo.acao.excluir" bundle="${bundle}"/>"/>
+	        	<fmt:message key="arquivo.acao.excluir" bundle="${bundle}" var="arquivo_acao_excluir"/>
+	        	<input type="submit" value="${arquivo_acao_excluir}"/>
 	        </form:form>
         </sec:authorize>
         
         <sec:authorize url="/arquivos/**/descarregar" method="GET">
         <form:form method="get" action="${arquivo.id}/descarregar">
-        	<input type="submit" value="<fmt:message key="arquivo.acao.descarregar" bundle="${bundle}"/>"/>
+        	<fmt:message key="arquivo.acao.descarregar" bundle="${bundle}" var="arquivo_acao_descarregar"/>
+        	<input type="submit" value="${arquivo_acao_descarregar}"/>
         </form:form>
         </sec:authorize>
-    </body>
-</html>
+</div>

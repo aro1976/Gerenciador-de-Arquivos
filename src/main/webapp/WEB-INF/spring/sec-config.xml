@@ -17,15 +17,15 @@
 	
 	<beans:bean id="securityExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
 		<beans:property name="permissionEvaluator">
-			<beans:bean  class="com.javahero.fileshare.security.ArquivoPermissionEvaluator"/>
+			<beans:bean  class="com.javahero.seguranca.VerificadorEntidadeSegura"/>
 		</beans:property>
 	</beans:bean>
 	
     <http use-expressions="true">
-		<form-login login-processing-url="/resources/j_spring_security_check"
-			login-page="/login" authentication-failure-url="/login?login_error=t" />
-		<logout logout-url="/resources/j_spring_security_logout" />
-		<intercept-url pattern="/login*" access="permitAll()" />
+		<form-login login-processing-url="/seguranca/validar"
+			login-page="/seguranca/entrar" authentication-failure-url="/seguranca/entrar?login_error=t" />
+		<logout logout-url="/seguranca/sair" />
+		<intercept-url pattern="/seguranca/*" access="permitAll()" />
 		<intercept-url pattern="/resources/**" access="permitAll()" />
     	<intercept-url pattern="/" access="isAuthenticated()" />
     	<intercept-url pattern="/arquivos/novo" access="hasRole('ROLE_MANAGER')"/>
@@ -50,12 +50,14 @@
 
     <authentication-manager>
         <authentication-provider>
+        	<jdbc-user-service data-source-ref=""/>
         	<password-encoder hash="plaintext"/>
             <user-service>
-                <user name="rod" password="koala" authorities="ROLE_MANAGER, ROLE_USER," />
-                <user name="dianne" password="emu" authorities="ROLE_USER" />
-                <user name="scott" password="wombat" authorities="ROLE_USER" />
-                <user name="peter" password="opal" authorities="ROLE_USER" />
+            	<user name="aoliveir" password="aoliveir" authorities="ROLE_MANAGER, ROLE_USER" />
+                <user name="thiago" password="thiago" authorities="ROLE_MANAGER, ROLE_USER" />
+                <user name="arthur" password="arthur" authorities="ROLE_MANAGER, ROLE_USER" />
+                <user name="aoliveir" password="aoliveir" authorities="ROLE_MANAGER, ROLE_USER" />
+                <user name="guest" password="guest" authorities="ROLE_USER" />
             </user-service>
         </authentication-provider>
     </authentication-manager>

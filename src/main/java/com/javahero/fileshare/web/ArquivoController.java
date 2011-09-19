@@ -25,10 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.javahero.fileshare.domain.ArquivoConteudo;
 import com.javahero.fileshare.domain.ArquivoMetadados;
 import com.javahero.fileshare.domain.ArquivoMetadadosList;
-import com.javahero.fileshare.security.ServicoSeguranca;
 import com.javahero.fileshare.service.Configuracao;
 import com.javahero.fileshare.service.RepositorioArquivos;
 import com.javahero.fileshare.service.RepositorioMetadados;
+import com.javahero.seguranca.ServicoSeguranca;
 
 /**
  * Controla o acesso á aplicação, delegando a execução das regras de negócio para os serviços e 
@@ -149,7 +149,7 @@ public class ArquivoController {
 	public ModelAndView listarPagina(@PathVariable(value="pagina") int pagina, ArquivoMetadados criterio, HttpServletRequest request) throws Exception {
 		log.info("listarPAgina "+pagina);
 
-		ModelAndView mav = new ModelAndView("arquivo/listarPagina");
+		ModelAndView mav = new ModelAndView("arquivos/listarPagina");
 		List<ArquivoMetadados> lista = repositorioMetadados.buscarPorCriterio(criterio, pagina);
 		mav.addObject("arquivos", new ArquivoMetadadosList(lista));
 		mav.addObject("existePaginaAnterior", pagina > 1);

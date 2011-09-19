@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+<div xmlns:sec="http://www.springframework.org/security/tags" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+	<fmt:setBundle basename="com.javahero.fileshare.Messages" var="bundle"/>
     <jsp:output omit-xml-declaration="yes"/>
-    <page:find path="listar/1" id="s_fileserver_domain_nomeOriginal" finderName="nomeOriginal" >
-    
-    </page:find>
+
+	<form:form method="get" action="listar/1" modelAttribute="arquivoMetadados">
+		 <fieldset>
+			<legend><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></legend>
+			<table>
+				<tr>
+					<td><form:label for="nomeOriginal" path="nomeOriginal"><fmt:message key="arquivo.campo.nomeOriginal" bundle="${bundle}"/></form:label></td>
+				    <td><form:input path="nomeOriginal"/></td>
+				</tr>
+	
+	            <tr>
+	            	<fmt:message key="arquivo.acao.consultar" bundle="${bundle}" var="arquivo_acao_consultar"/>
+	                <td colspan="2"><input type="submit" value="${arquivo_acao_consultar}"></input></td>
+	            </tr>
+			</table>
+	    </fieldset>
+	</form:form>	
 </div>

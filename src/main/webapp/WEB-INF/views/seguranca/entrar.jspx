@@ -1,0 +1,44 @@
+<div xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:spring="http://www.springframework.org/tags" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+  <fmt:setBundle basename="com.javahero.seguranca.Messages" var="segurancaBundle"/>
+  
+    <c:if test="${not empty param.login_error}">
+      <div class="errors">
+        <p>
+          <fmt:message bundle="${segurancaBundle}" key="seguranca.entrar.mal_sucedido"/>
+          <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+          .
+        </p>
+      </div>
+    </c:if>
+    <c:if test="${empty param.login_error}">
+      <p>
+        <fmt:message bundle="${segurancaBundle}" key="seguranca.entrar.mensagem"/>
+      </p>
+    </c:if>
+    <spring:url value="/seguranca/validar" var="form_url" />
+    <form name="f" action="${fn:escapeXml(form_url)}" method="POST">
+      <div>
+        <label for="j_username">
+        	<fmt:message bundle="${segurancaBundle}" key="seguranca.campo.id"/>
+        </label>
+        <input id="j_username" type='text' name='j_username' style="width:150px" />
+      </div>
+      <br />
+      <div>
+        <label for="j_password">
+          <fmt:message bundle="${segurancaBundle}" key="seguranca.campo.senha"/>
+        </label>
+        <input id="j_password" type='password' name='j_password' style="width:150px" />
+      </div>
+      <br />
+      <div class="submit">
+      	<fmt:message bundle="${segurancaBundle}" key="seguranca.acao.entrar" var="seguranca_acao_entrar"/>        
+        <input id="proceed" type="submit" value="${fn:escapeXml(seguranca_acao_entrar)}" />
+        <fmt:message bundle="${segurancaBundle}" key="seguranca.acao.cancelar" var="seguranca_acao_cancelar"/>
+        <input id="reset" type="reset" value="${fn:escapeXml(seguranca_acao_cancelar)}" />
+      </div>
+    </form>
+
+</div>
+

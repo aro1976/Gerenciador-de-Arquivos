@@ -1,4 +1,4 @@
-package com.javahero.fileshare.security;
+package com.javahero.seguranca;
 
 public interface EntidadeSegura {
 	

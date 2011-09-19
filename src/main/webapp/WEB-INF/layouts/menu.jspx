@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:sec="http://www.springframework.org/security/tags" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+	<fmt:setBundle basename="com.javahero.fileshare.Messages" var="bundle"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    
+   	<div> 		
+		<sec:authorize url="/arquivos/consultar">
+			<spring:url value="/arquivos/consultar" var="arquivo_consultar_url"/>
+			<a href="${arquivo_consultar_url}"><fmt:message key="arquivo.acao.consultar" bundle="${bundle}"/></a> | 
+		</sec:authorize>
+		
+		<sec:authorize url="/arquivos/novo">
+			<spring:url value="/arquivos/novo" var="arquivo_novo_url"/>
+	   		<a href="${arquivo_novo_url}"><fmt:message key="arquivo.acao.carregar" bundle="${bundle}"/></a> |
+   		</sec:authorize>
+   		
+	   	<sec:authorize url="/arquivos/listar">
+	   		<spring:url value="/arquivos/listar/1" var="arquivo_listar_url"/>
+	   		<a href="${arquivo_listar_url}"><fmt:message key="arquivo.acao.listar" bundle="${bundle}"/></a>
+   		</sec:authorize>
+	   	
+	   	<span style="float: right;">
+	   		<c:choose>
+	   			<c:when test="${pageContext['request'].userPrincipal == null}">
+	   				<spring:url value="/seguranca/entrar" var="login_url"/>
+	   				<a href="${login_url}">Entrar</a> 
+	   			</c:when>
+	   			<c:otherwise>
+	   				<spring:url value="/seguranca/sair" var="logout_url"/>
+	   				<b>${pageContext['request'].userPrincipal.principal.username}</b> | 
+	   				<a href="${logout_url}">Sair</a>
+	   			</c:otherwise>
+	   		</c:choose>
+   		</span>
+   	</div>
+</div>

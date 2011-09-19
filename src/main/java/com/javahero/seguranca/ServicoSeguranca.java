@@ -1,4 +1,4 @@
-package com.javahero.fileshare.security;
+package com.javahero.seguranca;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
