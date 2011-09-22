@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:jsp="http://java.sun.com/JSP/Page"
+		xmlns:spring="http://www.springframework.org/tags" xmlns:sec="http://www.springframework.org/security/tags" xmlns:form="http://www.springframework.org/tags/form"  version="2.0">
+		
+	<jsp:output omit-xml-declaration="yes" />
+
+	<jsp:directive.attribute name="id" type="java.lang.String" required="true" description="The identifier for this tag (do not change!)" />
+	<jsp:directive.attribute name="controlador" type="java.lang.String" required="true" description="O controlador que sera utilizado" />
+	<jsp:directive.attribute name="codigoItem" type="java.lang.String" required="true" description="O codigo do item que sera descarregado" />
+
+	<fmt:setBundle basename="com.javahero.arquivo.Messages" var="bundle"/>
+	
+	<c:if test="${empty render or render}">
+			
+		<sec:authorize url="/${controlador}/**/descarregar" method="GET"> 
+       		<spring:url var="arquivo_url_descarregar" value="/${controlador}/${codigoItem}/descarregar" />    
+        	<button id="btn_${id}"><fmt:message key="arquivo.acao.descarregar" bundle="${bundle}"/></button>
+        	<script>
+				(function($){
+					$("#btn_${id}").button().click(function() {
+						$(location).attr('href',"${arquivo_url_descarregar}");
+					});
+				})(jQuery);
+			</script>
+        </sec:authorize>  
+	</c:if>
+</jsp:root>

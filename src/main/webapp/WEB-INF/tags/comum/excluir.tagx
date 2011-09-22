@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:jsp="http://java.sun.com/JSP/Page"
+		xmlns:spring="http://www.springframework.org/tags" xmlns:sec="http://www.springframework.org/security/tags" xmlns:form="http://www.springframework.org/tags/form"  version="2.0">
+		
+	<jsp:output omit-xml-declaration="yes" />
+
+	<jsp:directive.attribute name="id" type="java.lang.String" required="true" description="The identifier for this tag (do not change!)" />
+	<jsp:directive.attribute name="controlador" type="java.lang.String" required="true" description="O controlador que sera utilizado" />
+	<jsp:directive.attribute name="descricaoItem" type="java.lang.String" required="true" description="A descricao do item que sera excluido" />
+	<jsp:directive.attribute name="codigoItem" type="java.lang.String" required="true" description="O codigo do item que sera excluido" />
+
+	<fmt:setBundle basename="com.javahero.comum.Messages" var="bundle"/>
+	
+	<c:if test="${empty render or render}">
+			
+		<sec:authorize url="/${controlador}/**" method="DELETE">
+			
+			<spring:url var="sucessoUrl" value="/${controlador}/listar/1" />
+			<spring:url var="excluirUrl" value="/${controlador}/${codigoItem}" />
+			<fmt:message key="comum.acao.excluir.sucesso" var="sucessoMensagem" bundle="${bundle}">
+				<fmt:param value="${descricaoItem}"/>
+			</fmt:message>
+			<fmt:message key="comum.acao.excluir.erro" var="erroMensagem" bundle="${bundle}">
+				<fmt:param value="${descricaoItem}"/>
+			</fmt:message>
+
+			<fmt:message key="comum.acao.confirmar.rotulo" var="acao_confirmar_rotulo" bundle="${bundle}" />
+			<fmt:message key="comum.acao.cancelar.rotulo" var="acao_cancelar_rotulo" bundle="${bundle}" />
+			
+			<button id="btn_${id}"> 
+				<fmt:message key="comum.acao.excluir.rotulo" bundle="${bundle}" />
+			</button>
+			
+			<fmt:message key="comum.acao.excluir.confirmacao.titulo" var="confirmacaoTitulo" bundle="${bundle}"/>			
+			
+			<div id="dlg_${id}" title="${confirmacaoTitulo}">
+				<fmt:message key="comum.acao.excluir.confirmacao.mensagem" bundle="${bundle}">
+					<fmt:param value="${descricaoItem}"/>
+				</fmt:message>
+			</div>
+			<script>
+				(function($){
+					var btn_${id}_confirma = function(){
+						$("#dlg_${id}").dialog("close");
+						
+						$.ajax({
+							  url: "${excluirUrl}",
+							  type: "DELETE",
+							  context: document.body,
+							  success: function(){
+							    alert("${sucessoMensagem}");
+							    $(location).attr('href',"${sucessoUrl}");							    
+							  },
+						  	  error: function(){
+							    alert("${erroMensagem}");						    
+							  }
+							});
+					}
+				
+					var btn_${id}_cancela = function(){
+						$("#dlg_${id}").dialog("close");
+					}
+					
+					var dialogOpts = {
+						autoOpen: false,
+						modal: true,
+						width: 450,
+						minHeight: 250,	
+						resizable: false,
+						buttons: {
+							"${acao_confirmar_rotulo}": btn_${id}_confirma,
+							"${acao_cancelar_rotulo}": btn_${id}_cancela
+						}
+					};
+					
+					$("#dlg_${id}").dialog(dialogOpts);
+					
+					$("#btn_${id}").button().click(function() {
+						$("#dlg_${id}").dialog("open");
+					});
+				})(jQuery);
+			</script>
+		</sec:authorize>
+	</c:if>
+</jsp:root>

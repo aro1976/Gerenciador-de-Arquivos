@@ -15,7 +15,12 @@
 			<sec:authorize url="/arquivos/**" method="POST">
             <tr>
             	<fmt:message key="arquivo.acao.carregar" bundle="${bundle}" var="arquivo_acao_carregar"/>
-                <td colspan="2"><input type="submit" value="${arquivo_acao_carregar}"/></td>
+                <td colspan="2"><input id="btnCarregar" type="submit" value="${arquivo_acao_carregar}"/></td>
+                <script>
+					(function($){
+						$("#btnCarregar").button();
+					})(jQuery);
+				</script>
             </tr>
             </sec:authorize>
 			</table>

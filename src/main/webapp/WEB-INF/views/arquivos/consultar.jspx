@@ -14,7 +14,12 @@
 	
 	            <tr>
 	            	<fmt:message key="arquivo.acao.consultar" bundle="${bundle}" var="arquivo_acao_consultar"/>
-	                <td colspan="2"><input type="submit" value="${arquivo_acao_consultar}"></input></td>
+	                <td colspan="2"><input id="btnConsultar" type="submit" value="${arquivo_acao_consultar}"></input></td>
+                    <script>
+						(function($){
+							$("#btnConsultar").button();
+						})(jQuery);
+					</script>
 	            </tr>
 			</table>
 	    </fieldset>

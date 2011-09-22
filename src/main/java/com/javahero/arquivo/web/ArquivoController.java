@@ -20,6 +20,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.javahero.arquivo.domain.ArquivoConteudo;
@@ -189,12 +190,11 @@ public class ArquivoController {
 	}
 	
 	@RequestMapping(value="/{hash}", method=RequestMethod.DELETE)
-	public String excluir(@PathVariable String hash) throws IOException {
+	@ResponseBody
+	public void excluir(@PathVariable String hash) throws IOException {
 		log.info("excluir "+hash);
 		
 		repositorioArquivos.exclui(hash);
 		repositorioMetadados.exclui(hash);
-		
-		return "redirect:/arquivos/listar/1";
 	}
 }

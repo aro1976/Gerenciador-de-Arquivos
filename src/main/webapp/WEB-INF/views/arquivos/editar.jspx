@@ -1,44 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:sec="http://www.springframework.org/security/tags" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+<div xmlns:comum="urn:jsptagdir:/WEB-INF/tags/comum" xmlns:arquivos="urn:jsptagdir:/WEB-INF/tags/arquivos" xmlns:spring="http://www.springframework.org/tags" xmlns:sec="http://www.springframework.org/security/tags" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" version="2.0">
 	<fmt:setBundle basename="com.javahero.arquivo.Messages" var="bundle"/>
     <jsp:output omit-xml-declaration="yes"/>
     
-        <form:form modelAttribute="arquivo" method="put" >
-            <fieldset>
-                <legend><fmt:message key="arquivo.campo.metadados" bundle="${bundle}"/></legend>
-                <table>
-                <tr>
-					<td><form:label for="nomeOriginal" path="nomeOriginal"><fmt:message key="arquivo.campo.nomeOriginal" bundle="${bundle}"/></form:label></td>
-                    <td><form:input path="nomeOriginal" size="100"/></td>
-                </tr>
-                
-                <tr>
-					<td><form:label for="notas" path="notas"><fmt:message key="arquivo.campo.notas" bundle="${bundle}"/></form:label></td>
-                    <td><form:input path="notas" size="100"/></td>
-                </tr>
-              
-              	<sec:authorize url="/arquivos/**" method="PUT">
-                <tr>
-                	<fmt:message key="arquivo.acao.atualizar" bundle="${bundle}" var="arquivo_acao_atualizar"/>
-                    <td colspan="2"><input type="submit" value="${arquivo_acao_atualizar}"/></td>
-                </tr>
-                </sec:authorize>
-                
-				</table>
-            </fieldset>
-        </form:form>
-        
-        <sec:authorize url="/arquivos/**" method="DELETE">
-	        <form:form method="delete" action="${arquivo.id}">
-	        	<fmt:message key="arquivo.acao.excluir" bundle="${bundle}" var="arquivo_acao_excluir"/>
-	        	<input type="submit" value="${arquivo_acao_excluir}"/>
-	        </form:form>
-        </sec:authorize>
-        
-        <sec:authorize url="/arquivos/**/descarregar" method="GET">
-        <form:form method="get" action="${arquivo.id}/descarregar">
-        	<fmt:message key="arquivo.acao.descarregar" bundle="${bundle}" var="arquivo_acao_descarregar"/>
-        	<input type="submit" value="${arquivo_acao_descarregar}"/>
-        </form:form>
-        </sec:authorize>
+    <form:form modelAttribute="arquivo" method="put" >
+        <fieldset>
+            <legend><fmt:message key="arquivo.campo.metadados" bundle="${bundle}"/></legend>
+            <table>
+            <tr>
+				<td><form:label for="nomeOriginal" path="nomeOriginal"><fmt:message key="arquivo.campo.nomeOriginal" bundle="${bundle}"/></form:label></td>
+                <td><form:input path="nomeOriginal" size="100"/></td>
+            </tr>
+            
+            <tr>
+				<td><form:label for="notas" path="notas"><fmt:message key="arquivo.campo.notas" bundle="${bundle}"/></form:label></td>
+                <td><form:input path="notas" size="100"/></td>
+            </tr>
+          
+         </table>
+         
+         <sec:authorize url="/arquivos/**" method="PUT">
+         	<fmt:message key="arquivo.acao.atualizar" bundle="${bundle}" var="arquivo_acao_atualizar"/>
+            <input id="btnAtualizar" type="submit" value="${arquivo_acao_atualizar}"/>
+            <script>
+				(function($){
+					$("#btnAtualizar").button();
+				})(jQuery);
+			</script>
+         </sec:authorize>
+
+        </fieldset>
+    </form:form>
+      		
+	<comum:excluir id="acao_excluir" 
+       		controlador="arquivos"
+       		codigoItem="${arquivo.id}"
+       		descricaoItem="${arquivo.nomeOriginal}"/>    
+       		      			 
+   	<arquivos:descarregar id="acao_descarregar" 
+     		controlador="arquivos" 
+     		codigoItem="${arquivo.id}"/>
 </div>
