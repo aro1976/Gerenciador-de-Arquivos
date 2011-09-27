@@ -24,60 +24,22 @@
 				<fmt:param value="${descricaoItem}"/>
 			</fmt:message>
 
-			<fmt:message key="comum.acao.confirmar.rotulo" var="acao_confirmar_rotulo" bundle="${bundle}" />
-			<fmt:message key="comum.acao.cancelar.rotulo" var="acao_cancelar_rotulo" bundle="${bundle}" />
+			<fmt:message key="comum.acao.confirmar.rotulo" var="botaoConfirmar" bundle="${bundle}" />
+			<fmt:message key="comum.acao.cancelar.rotulo" var="botaoCancelar" bundle="${bundle}" />
 			
-			<button id="btn_${id}"> 
+			<fmt:message key="comum.acao.excluir.confirmacao.titulo" var="dialogoTitulo" bundle="${bundle}"/>
+			<fmt:message key="comum.acao.excluir.confirmacao.mensagem" bundle="${bundle}" var="dialogoMensagem">
+				<fmt:param value="${descricaoItem}"/>
+			</fmt:message>
+			
+			<button id="btn_${id}" excluirUrl="${excluirUrl}" sucessoUrl="${sucessoUrl}" sucessoMensagem="${sucessoMensagem}" erroMensagem="${erroMensagem}" 
+					dialogoTitulo="${dialogoTitulo}" dialogoMensagem="${dialogoMensagem}" dialogoBotaoConfirmar="${botaoConfirmar}" dialogoBotaoCancelar="${botaoCancelar}"> 
 				<fmt:message key="comum.acao.excluir.rotulo" bundle="${bundle}" />
 			</button>
 			
-			<fmt:message key="comum.acao.excluir.confirmacao.titulo" var="confirmacaoTitulo" bundle="${bundle}"/>			
-			
-			<div id="dlg_${id}" title="${confirmacaoTitulo}">
-				<fmt:message key="comum.acao.excluir.confirmacao.mensagem" bundle="${bundle}">
-					<fmt:param value="${descricaoItem}"/>
-				</fmt:message>
-			</div>
 			<script>
 				(function($){
-					var btn_${id}_confirma = function(){
-						$("#dlg_${id}").dialog("close");
-						
-						$.ajax({
-							  url: "${excluirUrl}",
-							  type: "DELETE",
-							  context: document.body,
-							  success: function(){
-							    alert("${sucessoMensagem}");
-							    $(location).attr('href',"${sucessoUrl}");							    
-							  },
-						  	  error: function(){
-							    alert("${erroMensagem}");						    
-							  }
-							});
-					}
-				
-					var btn_${id}_cancela = function(){
-						$("#dlg_${id}").dialog("close");
-					}
-					
-					var dialogOpts = {
-						autoOpen: false,
-						modal: true,
-						width: 450,
-						minHeight: 250,	
-						resizable: false,
-						buttons: {
-							"${acao_confirmar_rotulo}": btn_${id}_confirma,
-							"${acao_cancelar_rotulo}": btn_${id}_cancela
-						}
-					};
-					
-					$("#dlg_${id}").dialog(dialogOpts);
-					
-					$("#btn_${id}").button().click(function() {
-						$("#dlg_${id}").dialog("open");
-					});
+					comum_cria_btn_excluir("#btn_${id}");
 				})(jQuery);
 			</script>
 		</sec:authorize>

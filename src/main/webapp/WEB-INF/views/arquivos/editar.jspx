@@ -3,7 +3,7 @@
 	<fmt:setBundle basename="com.javahero.arquivo.Messages" var="bundle"/>
     <jsp:output omit-xml-declaration="yes"/>
     
-    <form:form modelAttribute="arquivo" method="put" >
+    <form:form id="frmArquivo" modelAttribute="arquivo" method="put" >
         <fieldset>
             <legend><fmt:message key="arquivo.campo.metadados" bundle="${bundle}"/></legend>
             <table>
@@ -15,29 +15,34 @@
             <tr>
 				<td><form:label for="notas" path="notas"><fmt:message key="arquivo.campo.notas" bundle="${bundle}"/></form:label></td>
                 <td><form:input path="notas" size="100"/></td>
-            </tr>
-          
-         </table>
-         
-         <sec:authorize url="/arquivos/**" method="PUT">
-         	<fmt:message key="arquivo.acao.atualizar" bundle="${bundle}" var="arquivo_acao_atualizar"/>
-            <input id="btnAtualizar" type="submit" value="${arquivo_acao_atualizar}"/>
-            <script>
-				(function($){
-					$("#btnAtualizar").button();
-				})(jQuery);
-			</script>
-         </sec:authorize>
+            </tr>          
+         	</table>
+         	<br/>
 
         </fieldset>
-    </form:form>
+   	</form:form>
       		
-	<comum:excluir id="acao_excluir" 
-       		controlador="arquivos"
-       		codigoItem="${arquivo.id}"
-       		descricaoItem="${arquivo.nomeOriginal}"/>    
-       		      			 
-   	<arquivos:descarregar id="acao_descarregar" 
-     		controlador="arquivos" 
-     		codigoItem="${arquivo.id}"/>
+    <div>
+		<sec:authorize url="/arquivos/**" method="PUT">
+         	<button id="btnAtualizar"><fmt:message key="arquivo.acao.atualizar" bundle="${bundle}"/></button>
+            <script>
+				(function($){
+					$("#btnAtualizar").button().click(function() {
+						$("#frmArquivo").submit();
+					});
+				})(jQuery);
+			</script>
+		</sec:authorize>
+    
+    	<arquivos:descarregar id="acao_descarregar" 
+	     		controlador="arquivos" 
+	     		codigoItem="${arquivo.id}"/>
+	     		
+	    <comum:excluir id="acao_excluir" 
+	       		controlador="arquivos"
+	       		codigoItem="${arquivo.id}"
+	       		descricaoItem="${arquivo.nomeOriginal}"/>    
+	       		      			 
+    </div>
+	
 </div>

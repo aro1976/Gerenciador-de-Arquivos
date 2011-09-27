@@ -2,21 +2,23 @@
 
   <jsp:output omit-xml-declaration="yes" />
 
-  <spring:url value="/resources/jquery/themes/base/jquery.ui.all.css" var="jquery_ui_all_css" />
+  <spring:url value="/resources/css/themes/base/jquery.ui.all.css" var="jquery_ui_all_css" />
   <link rel="stylesheet" href="${jquery_ui_all_css}"></link>
   
-  <spring:url value="/resources/jquery/jquery.js" var="jquery_js" />
-  <spring:url value="/resources/jquery/ui/jquery-ui.js" var="jquery_ui_js" />
-  <spring:url value="/resources/jquery/ui/jquery.ui.core.js" var="jquery_ui_core_js" />
-  <spring:url value="/resources/jquery/ui/jquery.ui.widget.js" var="jquery_ui_widget_url" />
-  <spring:url value="/resources/jquery/ui/jquery.ui.button.js" var="jquery_ui_button_url" />
+  <spring:url value="/resources/js/jquery/jquery.js" var="jquery_js" />
+  <spring:url value="/resources/js/jquery/ui/jquery-ui.js" var="jquery_ui_js" />
+  <spring:url value="/resources/js/jquery/ui/jquery.ui.core.js" var="jquery_ui_core_js" />
+  <spring:url value="/resources/js/jquery/ui/jquery.ui.widget.js" var="jquery_ui_widget_url" />
+  <spring:url value="/resources/js/jquery/ui/jquery.ui.button.js" var="jquery_ui_button_url" />
+  <spring:url value="/resources/js/tags/comum/excluir.js" var="tags_comum_excluir_url" />
 
   <script src="${jquery_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
   <script src="${jquery_ui_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
   <script src="${jquery_ui_core_js}" type="text/javascript"><!-- required for FF3 and Opera --></script>
   <script src="${jquery_ui_widget_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
   <script src="${jquery_ui_button_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-
+  <script src="${tags_comum_excluir_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+  
   <spring:url value="/resources/images/favicon.ico" var="favicon" />
   <link rel="SHORTCUT ICON" href="${favicon}" />
 </jsp:root>

@@ -11,34 +11,65 @@
         </p>
       </div>
     </c:if>
-    <c:if test="${empty param.login_error}">
-      <p>
-        <fmt:message bundle="${segurancaBundle}" key="seguranca.entrar.mensagem"/>
-      </p>
-    </c:if>
+    
     <spring:url value="/seguranca/validar" var="form_url" />
-    <form name="f" action="${fn:escapeXml(form_url)}" method="POST">
-      <div>
-        <label for="j_username">
-        	<fmt:message bundle="${segurancaBundle}" key="seguranca.campo.id"/>
-        </label>
-        <input id="j_username" type='text' name='j_username' style="width:150px" />
-      </div>
-      <br />
-      <div>
-        <label for="j_password">
-          <fmt:message bundle="${segurancaBundle}" key="seguranca.campo.senha"/>
-        </label>
-        <input id="j_password" type='password' name='j_password' style="width:150px" />
-      </div>
-      <br />
-      <div class="submit">
-      	<fmt:message bundle="${segurancaBundle}" key="seguranca.acao.entrar" var="seguranca_acao_entrar"/>        
-        <input id="proceed" type="submit" value="${fn:escapeXml(seguranca_acao_entrar)}" />
-        <fmt:message bundle="${segurancaBundle}" key="seguranca.acao.cancelar" var="seguranca_acao_cancelar"/>
-        <input id="reset" type="reset" value="${fn:escapeXml(seguranca_acao_cancelar)}" />
-      </div>
-    </form>
+    
+    <fmt:message bundle="${segurancaBundle}" key="seguranca.credenciais.titulo" var="seguranca_credenciais_titulo"/>
+    <div id="dlg_seguranca_entrar" title="${seguranca_credenciais_titulo}">
+	    <form id="frmEntrar" name="f" action="${fn:escapeXml(form_url)}" method="POST">
+	      <div>
+	        <label for="j_username">
+	        	<fmt:message bundle="${segurancaBundle}" key="seguranca.campo.id"/>: 
+	        </label>
+	        <span style="float: right;"><input id="j_username" type='text' name='j_username' style="width:200px" /></span>
+	      </div>
+	      <br />
+	      <div>
+	        <label for="j_password">
+	          <fmt:message bundle="${segurancaBundle}" key="seguranca.campo.senha"/>:
+	        </label>
+	        <span style="float: right;"><input id="j_password" type='password' name='j_password' style="width:200px" /></span>
+	      </div>
+	      <br />
+	    </form>
+	</div>
+	
+	<fmt:message bundle="${segurancaBundle}" key="seguranca.acao.entrar" var="seguranca_acao_entrar"/>
+	<fmt:message bundle="${segurancaBundle}" key="seguranca.acao.cancelar" var="seguranca_acao_cancelar"/>
 
+	<style>
+		.ui-dialog-titlebar-close {
+			display: none;
+		}
+	</style>
+
+	<script>
+		(function($){
+			var _btn_entrar = function(){
+				$("#frmEntrar").submit();
+			};
+			
+			var _btn_cancelar = function(){
+				$("#frmEntrar")[0].reset();
+			};
+			
+			var dialogOpts = {
+					modal: true,
+					width: 350,
+					resizable: false,
+					draggable: false,
+					buttons: [
+						{
+				          text: "${seguranca_acao_entrar}",
+				          click: _btn_entrar
+				      	},{
+				      	  text: "${seguranca_acao_cancelar}",
+				          click: _btn_cancelar	
+				      	}]
+				};
+				
+			$("#dlg_seguranca_entrar").dialog(dialogOpts);
+		})(jQuery);
+	</script>
 </div>
 
