@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -29,6 +30,9 @@ import com.javahero.arquivo.domain.ArquivoMetadadosList;
 import com.javahero.arquivo.service.Configuracao;
 import com.javahero.arquivo.service.RepositorioArquivos;
 import com.javahero.arquivo.service.RepositorioMetadados;
+import com.javahero.documento.domain.Documento;
+import com.javahero.documento.domain.Documento.Tipo;
+import com.javahero.documento.service.RepositorioDocumento;
 import com.javahero.seguranca.ServicoSeguranca;
 
 /**
@@ -62,6 +66,9 @@ public class ArquivoController {
 	
 	@Autowired
 	RepositorioArquivos repositorioArquivos;
+	
+	@Autowired
+	RepositorioDocumento repositorioDocumento;
 	
 	@Autowired
 	ServicoSeguranca servicoSeguranca;
@@ -125,6 +132,16 @@ public class ArquivoController {
 		metadados.setNomeOriginal(atualizado.getNomeOriginal());
 		metadados.setNotas(atualizado.getNotas());
 		metadados.setUsuarioAtualizou(servicoSeguranca.obtemUsuario());
+		
+		// grava o documento
+		List<Documento> documentosSalvos = repositorioDocumento.buscarPorCriterio(atualizado.getDocumento());
+		if (documentosSalvos.size() == 0) {
+			repositorioDocumento.gravar(atualizado.getDocumento());
+			metadados.setDocumento(atualizado.getDocumento());
+		} else {
+			metadados.setDocumento(documentosSalvos.get(0));
+		}
+		
 		repositorioMetadados.gravar(metadados);
 		
 		return "redirect:/arquivos/listar/1";
@@ -196,5 +213,9 @@ public class ArquivoController {
 		
 		repositorioArquivos.exclui(hash);
 		repositorioMetadados.exclui(hash);
+	}
+	
+	public List<Tipo> tipoDocumentos() {
+		return Arrays.asList(Tipo.values());
 	}
 }

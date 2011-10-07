@@ -15,7 +15,19 @@
             <tr>
 				<td><form:label for="notas" path="notas"><fmt:message key="arquivo.campo.notas" bundle="${bundle}"/></form:label></td>
                 <td><form:input path="notas" size="100"/></td>
-            </tr>          
+            </tr>   
+            
+            <tr>
+				<td><form:label for="documento" path="documento"><fmt:message key="arquivo.campo.documento" bundle="${bundle}"/></form:label></td>
+                <td>
+                	<form:select path="documento.tipo">
+                		 <form:option value="-" label="--Selecione o Tipo--"/>
+    					 <form:options items="${tipoDocumentos}" />
+                	</form:select>
+                	<form:input  path="documento.numero" size="10"/>
+                </td>
+            </tr>  
+                   
          	</table>
          	<br/>
 

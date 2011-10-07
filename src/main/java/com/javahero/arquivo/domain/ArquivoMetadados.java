@@ -5,7 +5,10 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.document.mongodb.mapping.DBRef;
 import org.springframework.data.document.mongodb.mapping.Document;
+
+import com.javahero.documento.domain.Documento;
 
 /**
  * Utilizado para representar os Metadados associados ao Arquivo
@@ -40,9 +43,13 @@ public class ArquivoMetadados {
 	
 	private String notas;
 	
+	@DBRef
+	private Documento documento;
+	
 	// construtor
 	
 	public ArquivoMetadados() {
+		this.documento = new Documento();
 	}
 
 	// métodos de acesso
@@ -127,8 +134,16 @@ public class ArquivoMetadados {
 		this.notas = notas;
 	}
 
-	// sobrecarga object
+	public Documento getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(Documento documento) {
+		this.documento = documento;
+	}
 	
+	// sobrecarga object
+
 	@Override
 	public String toString() {
 		return "ArquivoMetadados [id=" + id + ", nomeOriginal=" + nomeOriginal
@@ -136,6 +151,6 @@ public class ArquivoMetadados {
 				+ dataAcesso + ", contadorAcesso=" + contadorAcesso
 				+ ", tamanho=" + tamanho + ", tipoConteudo=" + tipoConteudo
 				+ ", usuarioCriou=" + usuarioCriou + ", usuarioAtualizou="
-				+ usuarioAtualizou + ", notas=" + notas + "]";
+				+ usuarioAtualizou + ", notas=" + notas + ", documento=" + documento +"]";
 	}
 }

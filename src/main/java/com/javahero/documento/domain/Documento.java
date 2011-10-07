@@ -2,6 +2,7 @@ package com.javahero.documento.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.document.mongodb.mapping.Document;
 
 /**
@@ -28,6 +29,7 @@ public class Documento {
 	
 	// atributos
 	
+	@Id
 	private String id;
 	
 	private Tipo tipo;
