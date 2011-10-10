@@ -2,7 +2,6 @@ package com.javahero.documento.service;
 
 import static org.springframework.data.document.mongodb.query.Criteria.where;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,14 +9,9 @@ import javax.annotation.PostConstruct;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.document.mongodb.MongoTemplate;
-import org.springframework.data.document.mongodb.query.Index;
-import org.springframework.data.document.mongodb.query.Order;
 import org.springframework.data.document.mongodb.query.Query;
-import org.springframework.data.document.mongodb.query.Update;
-import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Repository;
 
-import com.javahero.arquivo.domain.ArquivoMetadados;
 import com.javahero.documento.domain.Documento;
 
 /**

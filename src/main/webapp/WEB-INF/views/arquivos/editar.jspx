@@ -27,6 +27,24 @@
                 	<form:input  path="documento.numero" size="10"/>
                 </td>
             </tr>  
+            
+            <tr>
+            	<td><label for="txtProcesso"><fmt:message key="arquivo.campo.processos" bundle="${bundle}"/></label></td>
+            	<td>
+            		<div id="divArquivoProcessos">
+	            		<c:forEach items="${arquivo.processos}" var="processo">
+	            			<div id="divArquivoProcesso${processo.id}">${processo.numero}</div>
+	            		</c:forEach>
+            		</div>
+            		<div>	
+          				<input type="text" id="txtProcesso"/>
+          				<spring:url var="adicionaUrl" value="/arquivos/${arquivo.id}/processos" />
+          				<button id="btnAdicionaProcesso" adicionaUrl="${adicionaUrl}">Adiciona</button>
+          				<spring:url var="editarJsUrl" value="/resources/js/view/arquivos/editar.js" />
+          				<script type="text/javascript" src="${editarJsUrl}"><!-- required for FF3 and Opera --></script>
+            		</div>
+                </td>
+            </tr>
                    
          	</table>
          	<br/>

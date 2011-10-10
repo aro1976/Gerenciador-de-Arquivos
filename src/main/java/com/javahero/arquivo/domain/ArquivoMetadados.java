@@ -1,6 +1,8 @@
 package com.javahero.arquivo.domain;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -9,6 +11,7 @@ import org.springframework.data.document.mongodb.mapping.DBRef;
 import org.springframework.data.document.mongodb.mapping.Document;
 
 import com.javahero.documento.domain.Documento;
+import com.javahero.processo.domain.Processo;
 
 /**
  * Utilizado para representar os Metadados associados ao Arquivo
@@ -44,6 +47,9 @@ public class ArquivoMetadados {
 	private String notas;
 	
 	@DBRef
+	private Set<Processo> processos;
+	
+	@DBRef
 	private Documento documento;
 	
 	// construtor
@@ -52,6 +58,16 @@ public class ArquivoMetadados {
 		this.documento = new Documento();
 	}
 
+	// regras de negócio
+	
+	public void associaProcesso(Processo processo) {
+		this.getProcessos().add(processo);
+	}
+	
+	public void desassociaProcesso(Processo processo) {
+		this.getProcessos().remove(processo);
+	}
+	
 	// métodos de acesso
 
 	public String getId() {
@@ -142,6 +158,17 @@ public class ArquivoMetadados {
 		this.documento = documento;
 	}
 	
+	public Set<Processo> getProcessos() {
+		if (this.processos == null) {
+			this.processos = new HashSet<Processo>();
+		}
+		return this.processos;
+	}
+	
+	public void setProcessos(Set<Processo> processos) {
+		this.processos = processos;
+	}
+	
 	// sobrecarga object
 
 	@Override
@@ -151,6 +178,7 @@ public class ArquivoMetadados {
 				+ dataAcesso + ", contadorAcesso=" + contadorAcesso
 				+ ", tamanho=" + tamanho + ", tipoConteudo=" + tipoConteudo
 				+ ", usuarioCriou=" + usuarioCriou + ", usuarioAtualizou="
-				+ usuarioAtualizou + ", notas=" + notas + ", documento=" + documento +"]";
+				+ usuarioAtualizou + ", notas=" + notas + ", documento=" 
+				+ documento + ", processos=" + processos + "]";
 	}
 }

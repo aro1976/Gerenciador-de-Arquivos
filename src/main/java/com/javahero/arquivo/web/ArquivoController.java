@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,6 +35,8 @@ import com.javahero.arquivo.service.RepositorioMetadados;
 import com.javahero.documento.domain.Documento;
 import com.javahero.documento.domain.Documento.Tipo;
 import com.javahero.documento.service.RepositorioDocumento;
+import com.javahero.processo.domain.Processo;
+import com.javahero.processo.service.RepositorioProcesso;
 import com.javahero.seguranca.ServicoSeguranca;
 
 /**
@@ -69,6 +73,9 @@ public class ArquivoController {
 	
 	@Autowired
 	RepositorioDocumento repositorioDocumento;
+	
+	@Autowired
+	RepositorioProcesso repositorioProcesso;
 	
 	@Autowired
 	ServicoSeguranca servicoSeguranca;
@@ -215,7 +222,40 @@ public class ArquivoController {
 		repositorioMetadados.exclui(hash);
 	}
 	
+	@RequestMapping(value="/{hash}/processos", method = RequestMethod.GET)
+	public @ResponseBody Set<Processo> listarProcessosAssociados(@PathVariable String hash, HttpServletResponse response) throws IOException {
+		log.info("listarProcessosAssociados "+hash);
+		
+		ArquivoMetadados metadados = repositorioMetadados.buscarPorHash(hash);
+		if (metadados == null) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+		}
+		
+		return metadados.getProcessos();
+	}
+	
+	@RequestMapping(value="/{hash}/processos", method = RequestMethod.POST)
+	public @ResponseBody Processo associaProcesso(@PathVariable String hash, @RequestParam String id, HttpServletResponse response) throws IOException {
+		log.info("associaProcesso "+hash+" processo "+id);
+		
+		ArquivoMetadados metadados = repositorioMetadados.buscarPorHash(hash);
+		if (metadados == null) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+		}
+		
+		Processo processo = repositorioProcesso.buscarPorNumero(id);
+		if (processo == null) {
+			processo = new Processo();
+			processo.setNumero(id);
+			repositorioProcesso.gravar(processo);
+		}
+		
+		metadados.associaProcesso(processo);
+		repositorioMetadados.gravar(metadados);
+		return processo;
+	}
+	
 	public List<Tipo> tipoDocumentos() {
 		return Arrays.asList(Tipo.values());
-	}
+	}	
 }

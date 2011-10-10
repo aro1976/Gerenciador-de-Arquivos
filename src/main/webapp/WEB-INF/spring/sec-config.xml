@@ -64,7 +64,6 @@
             	<user name="aoliveir" password="aoliveir" authorities="ROLE_MANAGER, ROLE_USER" />
                 <user name="thiago" password="thiago" authorities="ROLE_MANAGER, ROLE_USER" />
                 <user name="arthur" password="arthur" authorities="ROLE_MANAGER, ROLE_USER" />
-                <user name="aoliveir" password="aoliveir" authorities="ROLE_MANAGER, ROLE_USER" />
                 <user name="guest" password="guest" authorities="ROLE_USER" />
             </user-service>
         </authentication-provider>
