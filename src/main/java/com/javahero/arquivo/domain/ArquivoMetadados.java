@@ -7,8 +7,8 @@ import java.util.Set;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.document.mongodb.mapping.DBRef;
-import org.springframework.data.document.mongodb.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.javahero.documento.domain.Documento;
 import com.javahero.processo.domain.Processo;

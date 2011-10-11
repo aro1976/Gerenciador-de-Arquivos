@@ -5,7 +5,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.springframework.data.document.mongodb.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Utilizado para representar uma Lista de Documentos, é necessário para utilizar o Jaxb2Marshaller

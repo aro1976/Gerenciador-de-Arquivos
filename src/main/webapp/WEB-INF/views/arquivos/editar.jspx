@@ -29,7 +29,7 @@
             </tr>  
             
             <tr>
-            	<td><label for="txtProcesso"><fmt:message key="arquivo.campo.processos" bundle="${bundle}"/></label></td>
+            	<td><label for="txtProcesso"><fmt:message key="arquivo.campo.processo" bundle="${bundle}"/></label></td>
             	<td>
             		<div id="divArquivoProcessos">
 	            		<c:forEach items="${arquivo.processos}" var="processo">

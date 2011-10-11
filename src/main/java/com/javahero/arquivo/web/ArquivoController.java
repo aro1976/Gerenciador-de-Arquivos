@@ -139,7 +139,7 @@ public class ArquivoController {
 		metadados.setNomeOriginal(atualizado.getNomeOriginal());
 		metadados.setNotas(atualizado.getNotas());
 		metadados.setUsuarioAtualizou(servicoSeguranca.obtemUsuario());
-		
+		 
 		// grava o documento
 		List<Documento> documentosSalvos = repositorioDocumento.buscarPorCriterio(atualizado.getDocumento());
 		if (documentosSalvos.size() == 0) {
@@ -157,7 +157,7 @@ public class ArquivoController {
 	//@PreAuthorize("hasRole('ROLE_USER')")
 	//@PostFilter("hasPermission(filterObject, 'read') or hasPermission(filterObject, 'admin')")
 	@RequestMapping(value="listar", method = RequestMethod.GET)
-	public ModelAndView listar(ArquivoMetadados criterio, HttpServletRequest request) throws Exception {
+	public ModelAndView listar(ArquivoPesquisaForm criterio, HttpServletRequest request) throws Exception {
 		log.info("listar");
 
 		ModelAndView mav = new ModelAndView("arquivos/listar");
@@ -171,7 +171,7 @@ public class ArquivoController {
 	}
 	
 	@RequestMapping(value="listar/{pagina}", method = RequestMethod.GET)
-	public ModelAndView listarPagina(@PathVariable(value="pagina") int pagina, ArquivoMetadados criterio, HttpServletRequest request) throws Exception {
+	public ModelAndView listarPagina(@PathVariable(value="pagina") int pagina, ArquivoPesquisaForm criterio, HttpServletRequest request) throws Exception {
 		log.info("listarPAgina "+pagina);
 
 		ModelAndView mav = new ModelAndView("arquivos/listarPagina");
@@ -185,7 +185,7 @@ public class ArquivoController {
 	}
 	
 	@RequestMapping(value="/consultar", method = RequestMethod.GET)
-	public ModelAndView consultar(ArquivoMetadados parametros) throws Exception {
+	public ModelAndView consultar(ArquivoPesquisaForm parametros) throws Exception {
 		log.info("consultar");
 		
 		return new ModelAndView("arquivos/consultar");

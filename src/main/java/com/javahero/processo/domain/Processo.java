@@ -1,9 +1,11 @@
 package com.javahero.processo.domain;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.document.mongodb.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Utilizado para representar um processo de embarque
@@ -13,8 +15,10 @@ import org.springframework.data.document.mongodb.mapping.Document;
  */
 @Document
 @XmlRootElement(name="processo")
-public class Processo {
+public class Processo implements Serializable {
 	
+	private static final long serialVersionUID = 29371283L;
+
 	// atributos
 	
 	@Id

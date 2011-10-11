@@ -1,6 +1,6 @@
 package com.javahero.arquivo.service;
 
-import static org.springframework.data.document.mongodb.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 import java.util.Date;
 import java.util.List;
@@ -9,15 +9,19 @@ import javax.annotation.PostConstruct;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.document.mongodb.MongoTemplate;
-import org.springframework.data.document.mongodb.query.Index;
-import org.springframework.data.document.mongodb.query.Order;
-import org.springframework.data.document.mongodb.query.Query;
-import org.springframework.data.document.mongodb.query.Update;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.index.Index;
+import org.springframework.data.mongodb.core.query.Order;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
+
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Repository;
 
 import com.javahero.arquivo.domain.ArquivoMetadados;
+import com.javahero.arquivo.web.ArquivoPesquisaForm;
+import com.javahero.processo.domain.Processo;
+import com.javahero.processo.service.RepositorioProcesso;
 
 /**
  * Gerencia a persisência dos Metadados no MongoDB
@@ -37,6 +41,9 @@ public class RepositorioMetadados {
 	@Autowired
 	MongoTemplate mongoTemplate;
 
+	@Autowired
+	RepositorioProcesso repositorioProcesso;
+	
 	// regras de negócio
 	
 	@PostConstruct
@@ -68,12 +75,18 @@ public class RepositorioMetadados {
 		return results;
 	}
 
-	public List<ArquivoMetadados> buscarPorCriterio(ArquivoMetadados criterio) {
+	public List<ArquivoMetadados> buscarPorCriterio(ArquivoPesquisaForm criterio) {
 		log.info("buscarPorCriterio "+criterio);
 		
 		Query query = new Query();
 		if (criterio.getNomeOriginal()!=null && !criterio.getNomeOriginal().isEmpty()) {
 			query.addCriteria(where("nomeOriginal").regex("(.*)"+criterio.getNomeOriginal()+"(.*)"));
+		}
+		if (criterio.getNumeroProcesso()!=null && !criterio.getNumeroProcesso().isEmpty()) {
+			Processo processo = repositorioProcesso.buscarPorNumero(criterio.getNumeroProcesso());
+			if (processo != null) {
+				query.addCriteria(where("processos").elemMatch(where("numero").is(criterio.getNumeroProcesso())));
+			}
 		}
 		List<ArquivoMetadados> results = mongoTemplate.find(query, ArquivoMetadados.class);
 		
@@ -81,7 +94,7 @@ public class RepositorioMetadados {
 		return results;
 	}
 	
-	public List<ArquivoMetadados> buscarPorCriterio(ArquivoMetadados criterio, int pagina) {
+	public List<ArquivoMetadados> buscarPorCriterio(ArquivoPesquisaForm criterio, int pagina) {
 		log.info("buscarPorCriterio "+criterio+ " pagina "+pagina);
 		
 		Query query = new Query();
@@ -89,6 +102,12 @@ public class RepositorioMetadados {
 		query.limit(LIMITE);
 		if (criterio.getNomeOriginal()!=null && !criterio.getNomeOriginal().isEmpty()) {
 			query.addCriteria(where("nomeOriginal").regex("(.*)"+criterio.getNomeOriginal()+"(.*)"));
+		}
+		if (criterio.getNumeroProcesso()!=null && !criterio.getNumeroProcesso().isEmpty()) {
+			Processo processo = repositorioProcesso.buscarPorNumero(criterio.getNumeroProcesso());
+			if (processo != null) {
+				query.addCriteria(where("processos").elemMatch(where("numero").is(criterio.getNumeroProcesso())));
+			}
 		}
 		List<ArquivoMetadados> results = mongoTemplate.find(query, ArquivoMetadados.class);
 		

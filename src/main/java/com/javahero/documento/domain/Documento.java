@@ -3,7 +3,7 @@ package com.javahero.documento.domain;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.document.mongodb.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Utilizado para representar um documento

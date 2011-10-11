@@ -22,13 +22,13 @@
     </bean>
 
 	<!-- Mongo Template -->
-    <bean id="mongoTemplate" class="org.springframework.data.document.mongodb.MongoTemplate">
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
     	<constructor-arg name="mongo" ref="mongo"/>
     	<constructor-arg name="databaseName" value="fileshare"/>
     </bean>
 
 	<!-- Factory bean that creates the Mongo instance -->
-    <bean id="mongo" class="org.springframework.data.document.mongodb.MongoFactoryBean">
+    <bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
     	<property name="host" value="localhost"/>
     </bean>
     
