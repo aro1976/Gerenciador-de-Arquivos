@@ -104,10 +104,7 @@ public class RepositorioMetadados {
 			query.addCriteria(where("nomeOriginal").regex("(.*)"+criterio.getNomeOriginal()+"(.*)"));
 		}
 		if (criterio.getNumeroProcesso()!=null && !criterio.getNumeroProcesso().isEmpty()) {
-			Processo processo = repositorioProcesso.buscarPorNumero(criterio.getNumeroProcesso());
-			if (processo != null) {
-				query.addCriteria(where("processos").elemMatch(where("numero").is(criterio.getNumeroProcesso())));
-			}
+			query.addCriteria(where("processos").in(criterio.getNumeroProcesso()));
 		}
 		List<ArquivoMetadados> results = mongoTemplate.find(query, ArquivoMetadados.class);
 		

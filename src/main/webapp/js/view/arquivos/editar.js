@@ -11,8 +11,8 @@
 					dataType : "json",
 					success : function(processo, xmlHttp) {
 						$("#divArquivoProcessos").append(
-								"<div style='display: none;'id='divArquivoProcesso"+processo.id+"'>" + processo.numero + "</div>");
-						$("#divArquivoProcesso"+processo.id).fadeIn("slow");
+								"<div id='divArquivoProcesso"+processo+"'>" + processo + "</div>");
+						$("#txtProcesso").val("");
 					},
 					error : function(xmlHttp) {
 						alert("Error " + xmlHttp.status);

@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.javahero.documento.domain.Documento;
-import com.javahero.processo.domain.Processo;
 
 /**
  * Utilizado para representar os Metadados associados ao Arquivo
@@ -46,25 +45,24 @@ public class ArquivoMetadados {
 	
 	private String notas;
 	
-	@DBRef
-	private Set<Processo> processos;
+	private Set<String> processos;
 	
-	@DBRef
 	private Documento documento;
 	
 	// construtor
 	
 	public ArquivoMetadados() {
 		this.documento = new Documento();
+		this.processos = new HashSet<String>();
 	}
 
 	// regras de negócio
 	
-	public void associaProcesso(Processo processo) {
+	public void associaProcesso(String processo) {
 		this.getProcessos().add(processo);
 	}
 	
-	public void desassociaProcesso(Processo processo) {
+	public void desassociaProcesso(String processo) {
 		this.getProcessos().remove(processo);
 	}
 	
@@ -158,14 +156,11 @@ public class ArquivoMetadados {
 		this.documento = documento;
 	}
 	
-	public Set<Processo> getProcessos() {
-		if (this.processos == null) {
-			this.processos = new HashSet<Processo>();
-		}
+	public Set<String> getProcessos() {
 		return this.processos;
 	}
 	
-	public void setProcessos(Set<Processo> processos) {
+	public void setProcessos(Set<String> processos) {
 		this.processos = processos;
 	}
 	

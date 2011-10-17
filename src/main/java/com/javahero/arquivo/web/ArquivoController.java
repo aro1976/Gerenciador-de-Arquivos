@@ -138,16 +138,8 @@ public class ArquivoController {
 		ArquivoMetadados metadados = repositorioMetadados.buscarPorHash(hash);
 		metadados.setNomeOriginal(atualizado.getNomeOriginal());
 		metadados.setNotas(atualizado.getNotas());
+		metadados.setDocumento(atualizado.getDocumento());
 		metadados.setUsuarioAtualizou(servicoSeguranca.obtemUsuario());
-		 
-		// grava o documento
-		List<Documento> documentosSalvos = repositorioDocumento.buscarPorCriterio(atualizado.getDocumento());
-		if (documentosSalvos.size() == 0) {
-			repositorioDocumento.gravar(atualizado.getDocumento());
-			metadados.setDocumento(atualizado.getDocumento());
-		} else {
-			metadados.setDocumento(documentosSalvos.get(0));
-		}
 		
 		repositorioMetadados.gravar(metadados);
 		
@@ -223,7 +215,7 @@ public class ArquivoController {
 	}
 	
 	@RequestMapping(value="/{hash}/processos", method = RequestMethod.GET)
-	public @ResponseBody Set<Processo> listarProcessosAssociados(@PathVariable String hash, HttpServletResponse response) throws IOException {
+	public @ResponseBody Set<String> listarProcessosAssociados(@PathVariable String hash, HttpServletResponse response) throws IOException {
 		log.info("listarProcessosAssociados "+hash);
 		
 		ArquivoMetadados metadados = repositorioMetadados.buscarPorHash(hash);
@@ -235,7 +227,7 @@ public class ArquivoController {
 	}
 	
 	@RequestMapping(value="/{hash}/processos", method = RequestMethod.POST)
-	public @ResponseBody Processo associaProcesso(@PathVariable String hash, @RequestParam String id, HttpServletResponse response) throws IOException {
+	public @ResponseBody String associaProcesso(@PathVariable String hash, @RequestParam String id, HttpServletResponse response) throws IOException {
 		log.info("associaProcesso "+hash+" processo "+id);
 		
 		ArquivoMetadados metadados = repositorioMetadados.buscarPorHash(hash);
@@ -243,16 +235,9 @@ public class ArquivoController {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}
 		
-		Processo processo = repositorioProcesso.buscarPorNumero(id);
-		if (processo == null) {
-			processo = new Processo();
-			processo.setNumero(id);
-			repositorioProcesso.gravar(processo);
-		}
-		
-		metadados.associaProcesso(processo);
+		metadados.associaProcesso(id);
 		repositorioMetadados.gravar(metadados);
-		return processo;
+		return id;
 	}
 	
 	public List<Tipo> tipoDocumentos() {
