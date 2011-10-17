@@ -35,12 +35,6 @@
         <intercept-url pattern="/arquivos/**" access="hasRole('ROLE_MANAGER')" method="PUT"/>
         <intercept-url pattern="/arquivos/**" access="isAuthenticated()" />
         
-        <intercept-url pattern="/documentos/novo" access="hasRole('ROLE_MANAGER')"/>
-        <intercept-url pattern="/documentos/**" access="hasRole('ROLE_MANAGER')" method="DELETE"/>
-        <intercept-url pattern="/documentos/**" access="hasRole('ROLE_MANAGER')" method="POST"/>
-        <intercept-url pattern="/documentos/**" access="hasRole('ROLE_MANAGER')" method="PUT"/>
-        <intercept-url pattern="/documentos/**" access="isAuthenticated()" />
-        
         <!-- Disable web URI authorization, as we're using <global-method-security> and have @Secured the services layer instead
         <intercept-url pattern="/listAccounts.html" access="isRememberMe()" />
         <intercept-url pattern="/post.html" access="hasRole('ROLE_TELLER')" />
@@ -55,7 +49,7 @@
         </session-management>
 
     </http>
-
+	
     <authentication-manager>
         <authentication-provider>
         	<jdbc-user-service data-source-ref=""/>
