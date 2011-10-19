@@ -6,19 +6,19 @@
 
 	<jsp:directive.attribute name="id" type="java.lang.String" required="true" description="The identifier for this tag (do not change!)" />
 	<jsp:directive.attribute name="controlador" type="java.lang.String" required="true" description="O controlador que sera utilizado" />
-	<jsp:directive.attribute name="codigoItem" type="java.lang.String" required="true" description="O codigo do item que sera descarregado" />
+	<jsp:directive.attribute name="url" type="java.lang.String" required="true" description="A url do item que sera descarregado" />
 
 	<fmt:setBundle basename="com.javahero.arquivo.Messages" var="bundle"/>
 	
 	<c:if test="${empty render or render}">
 			
 		<sec:authorize url="/${controlador}/**/descarregar" method="GET"> 
-       		<spring:url var="arquivo_url_descarregar" value="/${controlador}/${codigoItem}/descarregar" />    
+       		<spring:url var="arquivo_url_descarregar" value="${url}" />    
         	<button id="btn_${id}"><fmt:message key="arquivo.acao.descarregar" bundle="${bundle}"/></button>
         	<script>
 				(function($){
 					$("#btn_${id}").button().click(function() {
-						$(location).attr('href',"${arquivo_url_descarregar}");
+						$(location).attr('href',"${url}");
 					});
 				})(jQuery);
 			</script>

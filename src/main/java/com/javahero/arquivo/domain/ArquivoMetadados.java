@@ -4,12 +4,16 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.javahero.arquivo.service.Configuracao;
 import com.javahero.documento.domain.Documento;
 
 /**
@@ -19,6 +23,7 @@ import com.javahero.documento.domain.Documento;
  * @category Domain
  */
 @Document
+@Configurable
 @XmlRootElement(name="arquivo")
 public class ArquivoMetadados {
 
@@ -49,6 +54,11 @@ public class ArquivoMetadados {
 	
 	private Documento documento;
 	
+	@Transient
+	@Autowired
+	private Configuracao fileConfig;
+	
+	
 	// construtor
 	
 	public ArquivoMetadados() {
@@ -64,6 +74,12 @@ public class ArquivoMetadados {
 	
 	public void desassociaProcesso(String processo) {
 		this.getProcessos().remove(processo);
+	}
+	
+	@XmlElement
+	public String getUrl() {
+		String baseUrl = fileConfig.getProperty(Configuracao.CONFIG_BASE_URL);
+		return baseUrl+getId()+"/descarregar";
 	}
 	
 	// métodos de acesso
@@ -173,7 +189,7 @@ public class ArquivoMetadados {
 				+ dataAcesso + ", contadorAcesso=" + contadorAcesso
 				+ ", tamanho=" + tamanho + ", tipoConteudo=" + tipoConteudo
 				+ ", usuarioCriou=" + usuarioCriou + ", usuarioAtualizou="
-				+ usuarioAtualizou + ", notas=" + notas + ", documento=" 
+				+ usuarioAtualizou + ", notas=" + notas + ", url=" + getUrl() + ", documento=" 
 				+ documento + ", processos=" + processos + "]";
 	}
 }

@@ -9,6 +9,9 @@
     <!-- Scans the classpath of this application for @Components to deploy as beans -->
     <context:component-scan base-package="com.javahero"/>
 
+	<!-- Activates the Configurable Injection -->
+	<context:spring-configured/>
+	
     <!-- Configures Spring MVC -->
     <import resource="mvc-config.xml"/>
 
@@ -31,6 +34,8 @@
     <bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
     	<property name="host" value="localhost"/>
     </bean>
+    
+    <bean class="com.javahero.arquivo.domain.ArquivoMetadados" lazy-init="true"/>
     
 	<!-- Use this post processor to translate any MongoExceptions thrown in @Repository annotated classes -->
 	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>

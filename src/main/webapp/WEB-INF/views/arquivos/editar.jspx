@@ -66,7 +66,7 @@
     
     	<arquivos:descarregar id="acao_descarregar" 
 	     		controlador="arquivos" 
-	     		codigoItem="${arquivo.id}"/>
+	     		url="${arquivo.url}"/>
 	     		
 	    <comum:excluir id="acao_excluir" 
 	       		controlador="arquivos"

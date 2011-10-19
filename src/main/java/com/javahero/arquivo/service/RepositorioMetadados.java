@@ -14,13 +14,10 @@ import org.springframework.data.mongodb.core.index.Index;
 import org.springframework.data.mongodb.core.query.Order;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-
-import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Repository;
 
 import com.javahero.arquivo.domain.ArquivoMetadados;
 import com.javahero.arquivo.web.ArquivoPesquisaForm;
-import com.javahero.processo.domain.Processo;
 import com.javahero.processo.service.RepositorioProcesso;
 
 /**
