@@ -222,8 +222,8 @@
 			<version>1.0.0.Final</version>
 		</dependency>
 	</dependencies>
-
-	<build>
+	
+	<build>		
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
@@ -308,6 +308,7 @@
 				<version>2.4.3</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
+					
 				</configuration>
 			</plugin>
 			<plugin>
