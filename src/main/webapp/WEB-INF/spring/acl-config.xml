@@ -29,6 +29,7 @@
 		<intercept-url pattern="/resources/**" access="permitAll()" />
     	<intercept-url pattern="/" access="isAuthenticated()" />
     	
+    	<intercept-url pattern="/arquivos/**/descarregar" access="permitAll()" method="GET"/>
     	<intercept-url pattern="/arquivos/novo" access="hasRole('ARQUIVOS_NOVO')"/>
         <intercept-url pattern="/arquivos/**" access="hasRole('ARQUIVOS_EXCLUIR')" method="DELETE"/>
         <intercept-url pattern="/arquivos/**" access="hasRole('ARQUIVOS_ATUALIZAR')" method="POST"/>

@@ -45,7 +45,13 @@
             		</div>
                 </td>
             </tr>
-                   
+                 
+            <tr>
+				<td><form:label for="url" path="url"><fmt:message key="arquivo.campo.url" bundle="${bundle}"/></form:label></td>
+                <td>
+                	<span>${arquivo.url}</span>
+                </td>
+            </tr>  
          	</table>
          	<br/>
 
