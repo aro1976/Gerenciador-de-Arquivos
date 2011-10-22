@@ -16,7 +16,10 @@
     <import resource="mvc-config.xml"/>
 
     <!-- Configures Security -->
-    <import resource="sec-config.xml"/>
+    <import resource="acl-config.xml"/>
+    
+    <!-- Configures Authentication -->
+     <import resource="sec-config.xml"/>
     
     <!-- Configure the multipart resolver -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

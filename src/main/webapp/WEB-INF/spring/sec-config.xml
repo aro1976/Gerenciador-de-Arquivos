@@ -1,66 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-  - Sample namespace-based configuration
-  -
-  -->
-
 <beans:beans xmlns="http://www.springframework.org/schema/security"
     xmlns:beans="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+                       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+	
+<ldap-server 
+	url="ldap://10.1.1.6/dc=nunoferreira,dc=com,dc=br" 
+	manager-dn="cn=admin,dc=nunoferreira,dc=com,dc=br"
+	manager-password="Vl*rH@38"/>
 
-	<global-method-security secured-annotations="enabled" pre-post-annotations="enabled">
-		<expression-handler ref="securityExpressionHandler"/>
-	</global-method-security>
-	
-	<beans:bean id="securityExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
-		<beans:property name="permissionEvaluator">
-			<beans:bean  class="com.javahero.seguranca.VerificadorEntidadeSegura"/>
-		</beans:property>
-	</beans:bean>
-	
-    <http use-expressions="true">
-		<form-login login-processing-url="/seguranca/validar"
-			login-page="/seguranca/entrar" authentication-failure-url="/seguranca/entrar?login_error=t" />
-		<logout logout-url="/seguranca/sair" />
-		<intercept-url pattern="/seguranca/*" access="permitAll()" />
-		<intercept-url pattern="/resources/**" access="permitAll()" />
-    	<intercept-url pattern="/" access="isAuthenticated()" />
-    	
-    	<intercept-url pattern="/arquivos/novo" access="hasRole('ROLE_MANAGER')"/>
-        <intercept-url pattern="/arquivos/**" access="hasRole('ROLE_MANAGER')" method="DELETE"/>
-        <intercept-url pattern="/arquivos/**" access="hasRole('ROLE_MANAGER')" method="POST"/>
-        <intercept-url pattern="/arquivos/**" access="hasRole('ROLE_MANAGER')" method="PUT"/>
-        <intercept-url pattern="/arquivos/**" access="isAuthenticated()" />
-        
-        <!-- Disable web URI authorization, as we're using <global-method-security> and have @Secured the services layer instead
-        <intercept-url pattern="/listAccounts.html" access="isRememberMe()" />
-        <intercept-url pattern="/post.html" access="hasRole('ROLE_TELLER')" />
-        -->
-        <intercept-url pattern="/**" access="denyAll" />
-        
-        <remember-me />
-        
-        <!-- Uncomment to limit the number of sessions a user can have -->
-        <session-management>
-            <concurrency-control max-sessions="1" />
-        </session-management>
+<authentication-manager>
 
-    </http>
-	
-    <authentication-manager>
-        <authentication-provider>
-        	<jdbc-user-service data-source-ref=""/>
-        	<password-encoder hash="plaintext"/>
-            <user-service>
-            	<user name="aoliveir" password="aoliveir" authorities="ROLE_MANAGER, ROLE_USER" />
-                <user name="thiago" password="thiago" authorities="ROLE_MANAGER, ROLE_USER" />
-                <user name="arthur" password="arthur" authorities="ROLE_MANAGER, ROLE_USER" />
-                <user name="guest" password="guest" authorities="ROLE_USER" />
-            </user-service>
-        </authentication-provider>
-    </authentication-manager>
+	<ldap-authentication-provider 
+		user-dn-pattern="uid={0},ou=People"
+		group-search-base="ou=Groups"
+		role-prefix="none"/>
+		
+</authentication-manager>
 
 </beans:beans>

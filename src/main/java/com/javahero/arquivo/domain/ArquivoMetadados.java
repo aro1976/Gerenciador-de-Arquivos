@@ -79,7 +79,7 @@ public class ArquivoMetadados {
 	@XmlElement
 	public String getUrl() {
 		String baseUrl = fileConfig.getProperty(Configuracao.CONFIG_BASE_URL);
-		return baseUrl+getId()+"/descarregar";
+		return baseUrl+"arquivos/"+getId()+"/descarregar";
 	}
 	
 	// métodos de acesso
