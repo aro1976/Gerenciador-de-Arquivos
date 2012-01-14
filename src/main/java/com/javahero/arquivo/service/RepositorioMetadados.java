@@ -51,9 +51,9 @@ public class RepositorioMetadados {
 			mongoTemplate.createCollection(ArquivoMetadados.class);
 		}
 		
-		mongoTemplate.ensureIndex(new Index()
-			.named("arquivoMetadados_por_nomeOriginal")
-			.on("nomeOriginal", Order.ASCENDING), ArquivoMetadados.class);
+//		mongoTemplate.ensureIndex(new Index()
+//			.named("arquivoMetadados_por_nomeOriginal")
+//			.on("nomeOriginal", Order.ASCENDING), ArquivoMetadados.class);
 	}
 	
 	public void gravar(ArquivoMetadados arquivoMetadados) {
